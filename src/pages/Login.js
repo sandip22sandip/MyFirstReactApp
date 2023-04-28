@@ -6,26 +6,46 @@ import { AuthContext } from "../context/authContext";
 import company_logo from "../assets/images/Oceana_Logo.jpg";
 // import bg1 from "../assets/images/slide/ocean1.png";
 
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
 export default function Login() {
-  const [inputs, setInputs] = useState({
-    username: "",
-    password: "",
-  });
   const [err, setError] = useState(null);
+
+  const schema = yup
+    .object()
+    .shape({
+      // username: yup.string().min(6,"Must be more than 6 characters").max(255).email('Must be a valid E-Mail address').required('username is required'),
+      username: yup
+        .string()
+        .min(6, "Must be more than 6 characters")
+        .max(255)
+        .required("Username is required"),
+      password: yup
+        .string()
+        .min(6, "Must be more than 6 characters")
+        .max(255)
+        .required("Password is required"),
+    })
+    .required();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
   const navigate = useNavigate();
 
   const { login } = useContext(AuthContext);
 
-  const handleChange = (e) => {
-    setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const onSubmit = async (inputs) => {
     try {
       const loginRes = await login(inputs);
-      if (loginRes.error !== undefined) setError(loginRes.error);
+      if (loginRes.error !== undefined) return setError(loginRes.error);
       navigate("/main");
     } catch (err) {
       setError(err);
@@ -51,8 +71,13 @@ export default function Login() {
                     name="username"
                     required
                     placeholder="Username"
-                    onChange={handleChange}
+                    {...register("username")}
                   />
+                  {errors.username?.message && (
+                    <span style={{ color: "red" }}>
+                      {errors.username.message}{" "}
+                    </span>
+                  )}
                 </div>
               </div>
               <div className="form-group">
@@ -63,8 +88,13 @@ export default function Login() {
                     name="password"
                     required
                     placeholder="Password"
-                    onChange={handleChange}
+                    {...register("password")}
                   />
+                  {errors.password?.message && (
+                    <span style={{ color: "red" }}>
+                      {errors.password.message}{" "}
+                    </span>
+                  )}
                 </div>
               </div>
               <div className="form-group text-center m-t-40">
@@ -72,15 +102,13 @@ export default function Login() {
                   <button
                     className="btn btn-secondary btn-block btn-lg w-lg waves-effect waves-light"
                     type="submit"
-                    onClick={handleSubmit}
+                    onClick={handleSubmit(onSubmit)}
                   >
                     Log In
                   </button>
                 </div>
-                {err && (
-                  <p style={{ color: "red", textAlign: "center" }}>{err}</p>
-                )}
               </div>
+              {err && <span style={{ color: "red" }}>{err}</span>}
               <div className="form-group m-t-30">
                 <div className="col-sm-12 text-center">
                   <a href="recoverpw">
