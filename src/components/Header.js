@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import { Link } from 'react-router-dom';
 
 import demo_user from "../assets/images/users/demo-user.jpg";
 import company_logo from "../assets/images/company-logo-alt.png";
+import { AuthContext } from "../context/authContext";
 
 function Header() {
+  const { logout } = useContext(AuthContext);
   return (
     <div className="topbar topbar-min" id="topbar">
       {/* Button mobile view to collapse sidebar menu */}
@@ -90,7 +92,7 @@ function Header() {
                     </li>
                     <li className="divider" />
                     <li>
-                      <Link to="/login"> Sign Out</Link>
+                      <Link to="login" onClick={logout}> Sign Out</Link>
                     </li>
                   </ul>
                 </li>

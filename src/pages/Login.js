@@ -24,10 +24,11 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await login(inputs);
-      navigate("/");
+      const loginRes = await login(inputs);
+      if (loginRes.error !== undefined) setError(loginRes.error);
+      navigate("/main");
     } catch (err) {
-      setError(err.response.data);
+      setError(err);
     }
   };
   return (
@@ -47,6 +48,7 @@ export default function Login() {
                   <input
                     className="form-control input-lg"
                     type="text"
+                    name="username"
                     required
                     placeholder="Username"
                     onChange={handleChange}
@@ -58,6 +60,7 @@ export default function Login() {
                   <input
                     className="form-control input-lg"
                     type="password"
+                    name="password"
                     required
                     placeholder="Password"
                     onChange={handleChange}
@@ -74,7 +77,9 @@ export default function Login() {
                     Log In
                   </button>
                 </div>
-                {err && <p>{err}</p>}
+                {err && (
+                  <p style={{ color: "red", textAlign: "center" }}>{err}</p>
+                )}
               </div>
               <div className="form-group m-t-30">
                 <div className="col-sm-12 text-center">

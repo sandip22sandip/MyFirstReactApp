@@ -1,4 +1,5 @@
-import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+/* eslint-disable no-unused-vars */
+import { createBrowserRouter, RouterProvider, Outlet, Navigate } from "react-router-dom";
 
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
@@ -19,88 +20,103 @@ import Courses from "./pages/Courses";
 import MyTeam from "./pages/MyTeam";
 import Profile from "./pages/Profile";
 import Course from "./pages/Course";
-
-const HeaderLayout = () => (
-  <div className="fixed-left">
-    <div id="wrapper">
-      <Header />
-      <Sidebar />
-      <Outlet />
-      <Footer />
-      <Modals />
-    </div>
-  </div>
-);
-
-const router = createBrowserRouter([
-  {
-    element: <HeaderLayout />,
-    children: [
-      {
-        path: "/",
-        element: <Main />,
-      },
-      {
-        path: "/main",
-        element: <Main />,
-      },
-      {
-        path: "/profile",
-        element: <Profile />,
-      },
-      {
-        path: "/feed",
-        element: <Feed />,
-      },
-      {
-        path: "/calendar",
-        element: <Calendar />,
-      },
-      {
-        path: "/findacourse",
-        element: <FindACourse />,
-      },
-      {
-        path: "/courses",
-        element: <Courses />,
-      },
-      {
-        path: "/course",
-        element: <Course />,
-      },
-      {
-        path: "/myteam",
-        element: <MyTeam />,
-      },
-      {
-        path: "/leaderboard",
-        element: <Leaderboard />,
-      },
-      {
-        path: "/servicesproducts",
-        element: <ServicesProducts />,
-      },
-      {
-        path: "/kb",
-        element: <Kb />,
-      },
-      {
-        path: "/vacancies",
-        element: <Vacancies />,
-      },
-      {
-        path: "/rewards",
-        element: <Rewards />,
-      },
-    ],
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-]);
+import { useContext } from "react";
+import { AuthContext } from "./context/authContext";
 
 function App() {
+  const HeaderLayout = () => (
+    <div className="fixed-left">
+      <div id="wrapper">
+        <Header />
+        <Sidebar />
+        <Outlet />
+        <Footer />
+        <Modals />
+      </div>
+    </div>
+  );
+  const { currentUser } = useContext(AuthContext);
+  
+  const ProtectedRoute = ({ children }) => {
+    if (sessionStorage.getItem("AuthToken") === null) {
+      return <Navigate to="/login" />;
+    }
+
+    return children;
+  };
+
+  const router = createBrowserRouter([
+    {
+      element: (
+        <ProtectedRoute>
+          <HeaderLayout />
+        </ProtectedRoute>
+      ),
+      children: [
+        {
+          path: "/",
+          element: <Main />,
+        },
+        {
+          path: "/main",
+          element: <Main />,
+        },
+        {
+          path: "/profile",
+          element: <Profile />,
+        },
+        {
+          path: "/feed",
+          element: <Feed />,
+        },
+        {
+          path: "/calendar",
+          element: <Calendar />,
+        },
+        {
+          path: "/findacourse",
+          element: <FindACourse />,
+        },
+        {
+          path: "/courses",
+          element: <Courses />,
+        },
+        {
+          path: "/course",
+          element: <Course />,
+        },
+        {
+          path: "/myteam",
+          element: <MyTeam />,
+        },
+        {
+          path: "/leaderboard",
+          element: <Leaderboard />,
+        },
+        {
+          path: "/servicesproducts",
+          element: <ServicesProducts />,
+        },
+        {
+          path: "/kb",
+          element: <Kb />,
+        },
+        {
+          path: "/vacancies",
+          element: <Vacancies />,
+        },
+        {
+          path: "/rewards",
+          element: <Rewards />,
+        },
+      ],
+    },
+    {
+      path: "/login",
+      element: <Login />,
+    },
+  ]);
+
   return (
     <div className="App">
       <RouterProvider router={router} />
