@@ -1,5 +1,10 @@
 /* eslint-disable no-unused-vars */
-import { createBrowserRouter, RouterProvider, Outlet, Navigate } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Outlet,
+  Navigate,
+} from "react-router-dom";
 
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
@@ -23,20 +28,30 @@ import Course from "./pages/Course";
 import { useContext } from "react";
 import { AuthContext } from "./context/authContext";
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
 function App() {
-  const HeaderLayout = () => (
-    <div className="fixed-left">
-      <div id="wrapper">
-        <Header />
-        <Sidebar />
-        <Outlet />
-        <Footer />
-        <Modals />
-      </div>
-    </div>
-  );
-  const { currentUser } = useContext(AuthContext);
   
+  const { currentUser } = useContext(AuthContext);
+
+  const queryClient = new QueryClient();
+
+  const HeaderLayout = () => {
+    return (
+      <QueryClientProvider client={queryClient}>
+        <div className="fixed-left">
+          <div id="wrapper">
+            <Header />
+            <Sidebar />
+            <Outlet />
+            <Footer />
+            <Modals />
+          </div>
+        </div>
+      </QueryClientProvider>
+    );
+  };
+
   const ProtectedRoute = ({ children }) => {
     if (sessionStorage.getItem("AuthToken") === null) {
       return <Navigate to="/login" />;
@@ -82,7 +97,7 @@ function App() {
           element: <Courses />,
         },
         {
-          path: "/course",
+          path: "/course/:id",
           element: <Course />,
         },
         {

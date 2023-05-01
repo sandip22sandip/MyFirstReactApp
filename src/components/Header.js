@@ -22,7 +22,7 @@ function Header() {
                 <span className="clearfix" />
               </div>
               {/* ========== logo ========== */}
-              <div className>
+              <div>
                 <Link to="main" className="logo">
                   <img src={company_logo} alt="company_logo" />
                 </Link>

@@ -1,11 +1,26 @@
 import React from "react";
 
 import course10 from "../assets/images/course-imgs/course10.jpg";
-import course9 from "../assets/images/course-imgs/course9.jpg";
-import socialmedia from "../assets/images/course-imgs/social-media.gif";
 import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 function Courses() {
+  const { isLoading, error, data } = useQuery(["courses"], () =>
+    axios
+      .get("/rest.php", {
+        params: {
+          q: "/restAPI/course/getSubCourses/",
+          auth: sessionStorage.getItem("AuthToken"),
+        },
+      })
+      .then((res) => {
+        return res.data["course_info"];
+      })
+  );
+  // console.log(data)
+  // data.map((course) => ( console.log(course)))
+
   return (
     <div className="content-page">
       <div className="content">
@@ -57,143 +72,101 @@ function Courses() {
           </div>
           {/*=========================== courses ===========================*/}
           <div className="row">
-            <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2">
-              <div className="panel panel-default card">
-                <div className="card-img-thumb">
-                  <div className="overlay">
-                    <div id="card-info-btn" className="card-info-btn">
-                      <a
-                        href="/#"
-                        data-toggle="modal"
-                        data-target=".openCardInfo"
-                        className="btn btn-default btn-sm"
-                      >
-                        <i className="fa fa-info" />
-                      </a>
+            {error
+              ? "Something went wrong with your request"
+              : isLoading
+              ? "Loading"
+              : data.map((course) => (
+                  <div
+                    key={course.course_id}
+                    className="col-sm-6 col-md-4 col-lg-3 col-xl-2"
+                  >
+                    <div className="panel panel-default card">
+                      <div className="card-img-thumb">
+                        <div className="overlay">
+                          <div id="card-info-btn" className="card-info-btn">
+                            <a
+                              href="/#"
+                              data-toggle="modal"
+                              data-target={`#courseInfo${course.course_id}`}
+                              className="btn btn-default btn-sm"
+                            >
+                              <i className="fa fa-info" />
+                            </a>
+                          </div>
+                        </div>
+                        <img src={course10} alt="course10.jpg" />
+                      </div>
+                      <div className="progress progress-sm">
+                        <div
+                          className="progress-bar progress-bar-secondary"
+                          role="progressbar"
+                          aria-valuenow={60}
+                          aria-valuemin={0}
+                          aria-valuemax={100}
+                          style={{ width: "60%" }}
+                        ></div>
+                      </div>
+                      <div className="panel-body hover-desc">
+                        <div
+                          className="small m-b-5"
+                          title="{course.course_name}"
+                        >
+                          <i className="fa fa-bookmark-o" />{" "}
+                          {course.course_type}
+                        </div>
+                        <h3 className="panelTitle">{course?.course_name}</h3>
+                        <Link
+                          to={`/course/${course.course_id}`}
+                          type="button"
+                          className="btn btn-default btn-block waves-effect waves-light"
+                        >
+                          Launch
+                        </Link>
+                      </div>
+                    </div>
+
+                    <div
+                      className="modal fade"
+                      id={`courseInfo${course.course_id}`}
+                    >
+                      <div className="modal-dialog">
+                        <div className="modal-content p-0 b-0">
+                          <div className="panel panel-color panel-info b-0">
+                            <div className="panel-heading">
+                              <button
+                                type="button"
+                                className="close"
+                                data-dismiss="modal"
+                                aria-hidden="true"
+                              >
+                                <i className="fa fa-close" />
+                              </button>
+                              <h3 className="panel-title">
+                                {course?.course_name}
+                              </h3>
+                            </div>
+                            <div className="panel-body">
+                              <h5>{course?.course_name}</h5>
+                              <p>{course?.course_description}</p>
+                            </div>
+                            <div className="panel-footer">
+                              <div>
+                                <a
+                                  href="/#"
+                                  className="btn btn-default waves-light waves-effect"
+                                  data-dismiss="modal"
+                                >
+                                  Cancel
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <img
-                    src={course10}
-                    alt="course10.jpg"
-                  />
-                </div>
-                <div className="progress progress-sm">
-                  <div
-                    className="progress-bar progress-bar-secondary"
-                    role="progressbar"
-                    aria-valuenow={60}
-                    aria-valuemin={0}
-                    aria-valuemax={100}
-                    style={{ width: "60%" }}
-                  ></div>
-                </div>
-                <div className="panel-body hover-desc">
-                  <div className="small m-b-5" title="topic">
-                    <i className="fa fa-bookmark-o" /> E-learning
-                  </div>
-                  <h3 className="panelTitle">Analysis of Financial Reports</h3>
-                  <Link
-                    to="/course"
-                    type="button"
-                    className="btn btn-default btn-block waves-effect waves-light"
-                  >
-                    Launch
-                  </Link>
-                </div>
-              </div>
-            </div>
-            <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2">
-              <div className="panel panel-default card">
-                <div className="card-img-thumb">
-                  <div className="overlay">
-                    <div id="card-info-btn" className="card-info-btn">
-                      <a
-                        href="/#"
-                        data-toggle="modal"
-                        data-target=".openCardInfo"
-                        className="btn btn-default btn-sm"
-                      >
-                        <i className="fa fa-info" />
-                      </a>
-                    </div>
-                  </div>
-                  <img
-                    src={course9}
-                    alt="course9.jpg"
-                  />
-                </div>
-                <div className="progress progress-sm">
-                  <div
-                    className="progress-bar progress-bar-secondary"
-                    role="progressbar"
-                    aria-valuenow={10}
-                    aria-valuemin={0}
-                    aria-valuemax={100}
-                    style={{ width: "100%" }}
-                  ></div>
-                </div>
-                <div className="panel-body hover-desc">
-                  <div className="small m-b-5" title="topic">
-                    <i className="fa fa-bookmark-o" /> E-learning
-                  </div>
-                  <h3 className="panelTitle">
-                    Retirement Fund Trustee Training
-                  </h3>
-                  <Link
-                    to="course"
-                    className="btn btn-default btn-block waves-effect waves-light"
-                  >
-                    Launch
-                  </Link>
-                </div>
-              </div>
-            </div>
-            <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2">
-              <div className="panel panel-default card">
-                <div className="card-img-thumb">
-                  <div className="overlay">
-                    <div id="card-info-btn" className="card-info-btn">
-                      <a
-                        href="/#"
-                        data-toggle="modal"
-                        data-target=".openCardInfo"
-                        className="btn btn-default btn-sm"
-                      >
-                        <i className="fa fa-info" />
-                      </a>
-                    </div>
-                  </div>
-                  <img
-                    src={socialmedia}
-                    alt="social-media.gif"
-                  />
-                </div>
-                <div className="progress progress-sm">
-                  <div
-                    className="progress-bar progress-bar-secondary"
-                    role="progressbar"
-                    aria-valuenow={10}
-                    aria-valuemin={0}
-                    aria-valuemax={100}
-                    style={{ width: "0%" }}
-                  ></div>
-                </div>
-                <div className="panel-body hover-desc">
-                  <div className="small m-b-5" title="topic">
-                    <i className="fa fa-bookmark-o" /> E-learning
-                  </div>
-                  <h3 className="panelTitle">Social Media Policy</h3>
-                  <a
-                    href="/#"
-                    data-toggle="modal"
-                    data-target="#scorm_modal"
-                    className="btn btn-default btn-block waves-effect waves-light"
-                  >
-                    Launch
-                  </a>
-                </div>
-              </div>
-            </div>
+                ))}
           </div>
         </div>{" "}
         {/* container */}

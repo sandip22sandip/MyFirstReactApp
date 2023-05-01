@@ -3,15 +3,23 @@ import React from "react";
 // import { Link } from 'react-router-dom';
 
 import course1 from "../assets/images/course-imgs/course1.jpg";
-import course2 from "../assets/images/course-imgs/course2.jpg";
-import course3 from "../assets/images/course-imgs/course3.jpg";
-import course4 from "../assets/images/course-imgs/course4.jpg";
-import course5 from "../assets/images/course-imgs/course5.jpg";
-import course6 from "../assets/images/course-imgs/course6.jpg";
-import course7 from "../assets/images/course-imgs/course7.jpg";
-import course8 from "../assets/images/course-imgs/course8.jpg";
+
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 function FindACourse() {
+  const { isLoading, error, data } = useQuery(["AllCourses"], () =>
+    axios
+      .get("/rest.php", {
+        params: {
+          q: "/restAPI/course/getUnSubCourses/",
+          auth: sessionStorage.getItem("AuthToken"),
+        },
+      })
+      .then((res) => {
+        return res.data["course_info"];
+      })
+  );
   return (
     <div className="content-page">
       <div className="content">
@@ -83,271 +91,87 @@ function FindACourse() {
           </div>
           {/*=========================== courses ===========================*/}
           <div className="row">
-            <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2">
-              <div className="panel panel-default card">
-                <div className="card-img-thumb">
-                  <div className="overlay">
-                    <div id="card-info-btn" className="card-info-btn">
-                      <a
-                        href="/#"
-                        data-toggle="modal"
-                        data-target=".openCardInfo"
-                        className="btn btn-default btn-sm"
-                      >
-                        <i className="fa fa-info" />
-                      </a>
+            {error
+              ? "Something went wrong with your request"
+              : isLoading
+              ? "Loading"
+              : data.map((course) => (
+                  <div
+                    key={course.course_id}
+                    className="col-sm-6 col-md-4 col-lg-3 col-xl-2"
+                  >
+                    <div className="panel panel-default card">
+                      <div className="card-img-thumb">
+                        <div className="overlay">
+                          <div id="card-info-btn" className="card-info-btn">
+                            <a
+                              href="/#"
+                              data-toggle="modal"
+                              data-target={`#courseInfo${course.course_id}`}
+                              className="btn btn-default btn-sm"
+                            >
+                              <i className="fa fa-info" />
+                            </a>
+                          </div>
+                        </div>
+                        <img src={course1} alt="..." />
+                      </div>
+                      <div className="panel-body hover-desc">
+                        <div className="small m-b-5" title="topic">
+                          <i className="fa fa-bookmark-o" />{" "}
+                          {course.course_type}
+                        </div>
+                        <h3 className="panelTitle">{course?.course_name}</h3>
+                        <button
+                          type="button"
+                          className="btn btn-default btn-block waves-effect waves-light"
+                        >
+                          Enroll
+                        </button>
+                      </div>
+                    </div>
+
+                    <div
+                      className="modal fade"
+                      id={`courseInfo${course.course_id}`}
+                    >
+                      <div className="modal-dialog">
+                        <div className="modal-content p-0 b-0">
+                          <div className="panel panel-color panel-info b-0">
+                            <div className="panel-heading">
+                              <button
+                                type="button"
+                                className="close"
+                                data-dismiss="modal"
+                                aria-hidden="true"
+                              >
+                                <i className="fa fa-close" />
+                              </button>
+                              <h3 className="panel-title">
+                                {course?.course_name}
+                              </h3>
+                            </div>
+                            <div className="panel-body">
+                              <h5>{course?.course_name}</h5>
+                              <p>{course?.course_description}</p>
+                            </div>
+                            <div className="panel-footer">
+                              <div>
+                                <a
+                                  href="/#"
+                                  className="btn btn-default waves-light waves-effect"
+                                  data-dismiss="modal"
+                                >
+                                  Cancel
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <img src={course1} alt="..." />
-                </div>
-                <div className="panel-body hover-desc">
-                  <div className="small m-b-5" title="topic">
-                    <i className="fa fa-bookmark-o" /> E-learning
-                  </div>
-                  <h3 className="panelTitle">
-                    Financial Management &amp; Cost Accounting
-                  </h3>
-                  <button
-                    type="button"
-                    className="btn btn-default btn-block waves-effect waves-light"
-                  >
-                    Enroll
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2">
-              <div className="panel panel-default card">
-                <div className="card-img-thumb">
-                  <div className="overlay">
-                    <div id="card-info-btn" className="card-info-btn">
-                      <a
-                        href="/#"
-                        data-toggle="modal"
-                        data-target=".openCardInfo"
-                        className="btn btn-default btn-sm"
-                      >
-                        <i className="fa fa-info" />
-                      </a>
-                    </div>
-                  </div>
-                  <img src={course8} alt="..." />
-                </div>
-                <div className="panel-body hover-desc">
-                  <div className="small m-b-5" title="topic">
-                    <i className="fa fa-bookmark-o" /> Classroom
-                  </div>
-                  <h3 className="panelTitle">Enterprise Risk Management</h3>
-                  <button
-                    type="button"
-                    className="btn btn-default btn-block waves-effect waves-light"
-                  >
-                    Enroll
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2">
-              <div className="panel panel-default card">
-                <div className="card-img-thumb">
-                  <div className="overlay">
-                    <div id="card-info-btn" className="card-info-btn">
-                      <a
-                        href="/#"
-                        data-toggle="modal"
-                        data-target=".openCardInfo"
-                        className="btn btn-default btn-sm"
-                      >
-                        <i className="fa fa-info" />
-                      </a>
-                    </div>
-                  </div>
-                  <img src={course3} alt="..." />
-                </div>
-                <div className="panel-body hover-desc">
-                  <div className="small m-b-5" title="topic">
-                    <i className="fa fa-bookmark-o" /> E-learning
-                  </div>
-                  <h3 className="panelTitle">
-                    Course in Business Administration - Essential Business
-                    Finance (ICB)
-                  </h3>
-                  <button
-                    type="button"
-                    className="btn btn-default btn-block waves-effect waves-light"
-                  >
-                    Enroll
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2">
-              <div className="panel panel-default card">
-                <div className="card-img-thumb">
-                  <div className="overlay">
-                    <div id="card-info-btn" className="card-info-btn">
-                      <a
-                        href="/#"
-                        data-toggle="modal"
-                        data-target=".openCardInfo"
-                        className="btn btn-default btn-sm"
-                      >
-                        <i className="fa fa-info" />
-                      </a>
-                    </div>
-                  </div>
-                  <img src={course4} alt="..." />
-                </div>
-                <div className="panel-body hover-desc">
-                  <div className="small m-b-5" title="topic">
-                    <i className="fa fa-bookmark-o" /> Classroom
-                  </div>
-                  <h3 className="panelTitle">
-                    Course in Accounting - Skills Programme in Computerised
-                    Bookkeeping (ICB)
-                  </h3>
-                  <button
-                    type="button"
-                    className="btn btn-default btn-block waves-effect waves-light"
-                  >
-                    Enroll
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2">
-              <div className="panel panel-default card">
-                <div className="card-img-thumb">
-                  <div className="overlay">
-                    <div id="card-info-btn" className="card-info-btn">
-                      <a
-                        href="/#"
-                        data-toggle="modal"
-                        data-target=".openCardInfo"
-                        className="btn btn-default btn-sm"
-                      >
-                        <i className="fa fa-info" />
-                      </a>
-                    </div>
-                  </div>
-                  <img src={course5} alt="..." />
-                </div>
-                <div className="panel-body hover-desc">
-                  <div className="small m-b-5" title="topic">
-                    <i className="fa fa-bookmark-o" /> E-learning
-                  </div>
-                  <h3 className="panelTitle">
-                    Course in Banking - Skills Programme 1 in Wealth Management
-                  </h3>
-                  <button
-                    type="button"
-                    className="btn btn-default btn-block waves-effect waves-light"
-                  >
-                    Enroll
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2">
-              <div className="panel panel-default card">
-                <div className="card-img-thumb">
-                  <div className="overlay">
-                    <div id="card-info-btn" className="card-info-btn">
-                      <a
-                        href="/#"
-                        data-toggle="modal"
-                        data-target=".openCardInfo"
-                        className="btn btn-default btn-sm"
-                      >
-                        <i className="fa fa-info" />
-                      </a>
-                    </div>
-                  </div>
-                  <img src={course6} alt="..." />
-                </div>
-                <div className="panel-body hover-desc">
-                  <div className="small m-b-5" title="topic">
-                    <i className="fa fa-bookmark-o" /> Classroom
-                  </div>
-                  <h3 className="panelTitle">
-                    Short Courses in Economic and Financial Sciences
-                  </h3>
-                  <button
-                    type="button"
-                    className="btn btn-default btn-block waves-effect waves-light"
-                  >
-                    Enroll
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2">
-              <div className="panel panel-default card">
-                <div className="card-img-thumb">
-                  <div className="overlay">
-                    <div id="card-info-btn" className="card-info-btn">
-                      <a
-                        href="/#"
-                        data-toggle="modal"
-                        data-target=".openCardInfo"
-                        className="btn btn-default btn-sm"
-                      >
-                        <i className="fa fa-info" />
-                      </a>
-                    </div>
-                  </div>
-                  <img src={course7} alt="..." />
-                </div>
-                <div className="panel-body hover-desc">
-                  <div className="small m-b-5" title="topic">
-                    <i className="fa fa-bookmark-o" /> E-learning
-                  </div>
-                  <h3 className="panelTitle">
-                    {" "}
-                    Corporate Finance and Capital Investment Decisions
-                  </h3>
-                  <button
-                    type="button"
-                    className="btn btn-default btn-block waves-effect waves-light"
-                  >
-                    Enroll
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2">
-              <div className="panel panel-default card">
-                <div className="card-img-thumb">
-                  <div className="overlay">
-                    <div id="card-info-btn" className="card-info-btn">
-                      <a
-                        href="/#"
-                        data-toggle="modal"
-                        data-target=".openCardInfo"
-                        className="btn btn-default btn-sm"
-                      >
-                        <i className="fa fa-info" />
-                      </a>
-                    </div>
-                  </div>
-                  <img src={course2} alt="..." />
-                </div>
-                <div className="panel-body hover-desc">
-                  <div className="small m-b-5" title="topic">
-                    <i className="fa fa-bookmark-o" /> Classroom
-                  </div>
-                  <h3 className="panelTitle">
-                    Finance for Non-financial Managers - Module 1t
-                  </h3>
-                  <button
-                    type="button"
-                    className="btn btn-default btn-block waves-effect waves-light"
-                  >
-                    Enroll
-                  </button>
-                </div>
-              </div>
-            </div>
+                ))}
           </div>
         </div>{" "}
         {/* container */}

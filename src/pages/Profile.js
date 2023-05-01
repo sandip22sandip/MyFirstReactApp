@@ -169,7 +169,7 @@ function Profile() {
                             <span className="hidden-xs">Challenges</span>
                           </a>
                         </li>
-                        <li className>
+                        <li>
                           <a
                             href="#badges"
                             data-toggle="tab"
@@ -181,7 +181,7 @@ function Profile() {
                             <span className="hidden-xs">Badges</span>
                           </a>
                         </li>
-                        <li className>
+                        <li>
                           <a
                             href="#rewards"
                             data-toggle="tab"
@@ -213,16 +213,10 @@ function Profile() {
                                 </h5>
                               </div>
                               <div className="col-sm-4 text-right">
-                                <span
-                                  className="info-default label label-default"
-                                  title
-                                >
+                                <span className="info-default label label-default">
                                   0/1
                                 </span>
-                                <span
-                                  className="info-default label label-default m-r-5"
-                                  title
-                                >
+                                <span className="info-default label label-default m-r-5">
                                   <img
                                     src={token}
                                     style={{ maxHeight: 18, marginTop: "-2px" }}
@@ -230,10 +224,7 @@ function Profile() {
                                   />{" "}
                                   10
                                 </span>
-                                <span
-                                  className="info-default label label-default"
-                                  title
-                                >
+                                <span className="info-default label label-default">
                                   <img
                                     src={xpbadge}
                                     style={{ maxHeight: 18, marginTop: "-2px" }}
@@ -258,16 +249,10 @@ function Profile() {
                                 <h5 className="m-0">Do a staff survey</h5>
                               </div>
                               <div className="col-sm-4 text-right">
-                                <span
-                                  className="info-default label label-default"
-                                  title
-                                >
+                                <span className="info-default label label-default">
                                   0/1
                                 </span>
-                                <span
-                                  className="info-default label label-default m-r-5"
-                                  title
-                                >
+                                <span className="info-default label label-default m-r-5">
                                   <img
                                     src={token}
                                     style={{ maxHeight: 18, marginTop: "-2px" }}
@@ -275,10 +260,7 @@ function Profile() {
                                   />{" "}
                                   10
                                 </span>
-                                <span
-                                  className="info-default label label-default"
-                                  title
-                                >
+                                <span className="info-default label label-default">
                                   <img
                                     src={xpbadge}
                                     style={{ maxHeight: 18, marginTop: "-2px" }}
@@ -303,16 +285,10 @@ function Profile() {
                                 <h5 className="m-0">Comment on 10 posts</h5>
                               </div>
                               <div className="col-sm-4 text-right">
-                                <span
-                                  className="info-default label label-default"
-                                  title
-                                >
+                                <span className="info-default label label-default">
                                   0/10
                                 </span>
-                                <span
-                                  className="info-default label label-default m-r-5"
-                                  title
-                                >
+                                <span className="info-default label label-default m-r-5">
                                   <img
                                     src={token}
                                     style={{ maxHeight: 18, marginTop: "-2px" }}
@@ -320,10 +296,7 @@ function Profile() {
                                   />{" "}
                                   10
                                 </span>
-                                <span
-                                  className="info-default label label-default"
-                                  title
-                                >
+                                <span className="info-default label label-default">
                                   <img
                                     src={xpbadge}
                                     style={{ maxHeight: 18, marginTop: "-2px" }}
@@ -348,16 +321,10 @@ function Profile() {
                                 <h5 className="m-0">High five 20 posts</h5>
                               </div>
                               <div className="col-sm-4 text-right">
-                                <span
-                                  className="info-default label label-default"
-                                  title
-                                >
+                                <span className="info-default label label-default">
                                   0/20
                                 </span>
-                                <span
-                                  className="info-default label label-default m-r-5"
-                                  title
-                                >
+                                <span className="info-default label label-default m-r-5">
                                   <img
                                     src={token}
                                     style={{ maxHeight: 18, marginTop: "-2px" }}
@@ -365,10 +332,7 @@ function Profile() {
                                   />{" "}
                                   10
                                 </span>
-                                <span
-                                  className="info-default label label-default"
-                                  title
-                                >
+                                <span className="info-default label label-default">
                                   <img
                                     src={xpbadge}
                                     style={{ maxHeight: 18, marginTop: "-2px" }}

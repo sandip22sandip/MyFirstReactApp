@@ -9,8 +9,6 @@ function Modals() {
         <div
           className="modal fade modal-slideright"
           id="help_modal"
-          tabIndex={-1}
-          role="dialog"
           aria-hidden="true"
         >
           <div className="modal-dialog">
@@ -88,8 +86,6 @@ function Modals() {
         <div
           className="modal fade modal-slideright"
           id="notification_modal"
-          tabIndex={-1}
-          role="dialog"
           aria-hidden="true"
         >
           <div className="modal-dialog">
@@ -108,7 +104,7 @@ function Modals() {
                 <div className="panel-body">
                   <h6 className="bold">1 New notification</h6>
                   <hr />
-                  <div className>
+                  <div>
                     <Link to="career_journey" className="list-group-item b-0">
                       <i className="fa fa-chevron-right pull-right" /> New
                       journey assignment
@@ -123,8 +119,6 @@ function Modals() {
         <div
           className="modal fade modal-slideright"
           id="profile_modal"
-          tabIndex={-1}
-          role="dialog"
           aria-hidden="true"
         >
           <div className="modal-dialog">
@@ -213,63 +207,6 @@ function Modals() {
                       </Link>
                     </div>
                     <div className="col-xs-6"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <div className="modal fade openCardInfo" role="dialog">
-          <div className="modal-dialog">
-            <div className="modal-content p-0 b-0">
-              <div className="panel panel-color panel-info b-0">
-                <div className="panel-heading">
-                  <button
-                    type="button"
-                    className="close"
-                    data-dismiss="modal"
-                    aria-hidden="true"
-                  >
-                    <i className="fa fa-close" />
-                  </button>
-                  <h3 className="panel-title">Analysis of Financial Reports</h3>
-                </div>
-                <div className="panel-body">
-                  <h5>Analysis of Financial Reports</h5>
-                  <p>
-                    Learn how to interpret a business’ financial health and
-                    potential with confidence and insight.
-                  </p>
-                  <p>
-                    Sed ut perspiciatis unde omnis iste natus error sit
-                    voluptatem accusantium doloremque laudantium, totam rem
-                    aperiam, eaque ipsa quae ab illo inventore veritatis et
-                    quasi architecto beatae vitae dicta sunt explicabo. Nemo
-                    enim ipsam voluptatem quia voluptas sit aspernatur aut odit
-                    aut fugit, sed quia consequuntur magni dolores eos qui
-                    ratione voluptatem sequi nesciunt. Neque porro quisquam est,
-                    qui dolorem ipsum quia dolor sit amet, consectetur, adipisci
-                    velit.
-                  </p>
-                </div>
-                <div className="panel-footer">
-                  <div>
-                    <a
-                      href="/#"
-                      className="btn btn-default waves-light waves-effect"
-                      data-dismiss="modal"
-                    >
-                      Cancel
-                    </a>
-                    <a
-                      href="/#"
-                      className="btn btn-secondary waves-light waves-effect pull-right"
-                    >
-                      Launch
-                    </a>
                   </div>
                 </div>
               </div>

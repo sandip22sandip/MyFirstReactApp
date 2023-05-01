@@ -14,12 +14,12 @@ function Course() {
         <div className="panel-body">
           <div className="row">
             <div className="col-sm-12">
-              <a
+              <Link
                 className="btn btn-sm btn-default pull-right"
-                href="courses"
+                to="/courses"
               >
                 Back
-              </a>
+              </Link>
               <h5 className="bold">
                 Analysis of Financial Reports{" "}
                 <span className="toggleInfo small m-l-15">
