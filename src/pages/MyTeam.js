@@ -1,22 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Link } from "react-router-dom";
 
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-// //jQuery libraries
-// import "jquery/dist/jquery.min.js";
-
-// //Datatable Modules
-// import "datatables.net-dt/js/dataTables.dataTables";
-// import "datatables.net-dt/css/jquery.dataTables.min.css";
-// import $ from "jquery";
+import useDebounce from "../customhooks/useDebounce.js";
 
 import demo_mngr from "../assets/images/users/demo-manager.jpg";
 
 function MyTeam() {
-  const { isLoading, error, data } = useQuery(["MyTeam"], () =>
+  const [query, setQuery] = useState("");
+
+  const searchValue = useDebounce(query, 500);
+  const { isLoading, error, data } = useQuery(["MyTeam", searchValue], () =>
     axios
       .get("/rest.php", {
         params: {
@@ -25,23 +22,18 @@ function MyTeam() {
         },
       })
       .then((res) => {
+        if (searchValue.length === 0 || searchValue.length > 2) {
+          const keys = ["userid", "firstname", "lastname", "FullName"];
+          return res.data["users_list"].filter((item) =>
+            keys.some((key) => item[key].toLowerCase().includes(searchValue))
+          );
+        }
+
         return res.data["users_list"];
       })
   );
-  // console.log(data)
+  // console.log(data);
   // data.map((user) => ( console.log(user)))
-
-  //initialize datatable
-  // $(() => {
-  //   $("#myTeamDatatable").DataTable({
-  //     stateSave: true,
-  //     bDestroy: true,
-  //     aoColumnDefs: [
-  //       { bSortable: false, aTargets: [-1] },
-  //       { bSearchable: false, aTargets: [-1] },
-  //     ],
-  //   });
-  // });
 
   return (
     <div className="content-page">
@@ -49,11 +41,11 @@ function MyTeam() {
       <div className="content">
         <div className="container">
           <div className="row m-b-15">
-            <div className="col-sm-6">
+            <div className="col-sm-8">
               <h4>My Team</h4>
             </div>
-            <div className="col-sm-6">
-              <div className="btn-group pull-right">
+            <div className="col-sm-4">
+              {/* <div className="btn-group pull-right">
                 <button
                   type="button"
                   className="btn btn-default dropdown-toggle waves-effect waves-light"
@@ -80,6 +72,26 @@ function MyTeam() {
                     <Link to="/#">Settings</Link>
                   </li>
                 </ul>
+              </div> */}
+              <div className="input-group">
+                <input
+                  id="searchCourses"
+                  type="text"
+                  className="form-control"
+                  placeholder="Search..."
+                  onChange={(e) =>
+                    setQuery(e.target.value.toLowerCase().trim())
+                  }
+                />
+                <span className="input-group-btn">
+                  <button
+                    id="searchBtn"
+                    className="btn btn-secondary waves-effect waves-light"
+                    type="button"
+                  >
+                    <i className="fa fa-search" />
+                  </button>
+                </span>
               </div>
             </div>
           </div>
@@ -102,32 +114,39 @@ function MyTeam() {
                     </tr>
                   </thead>
                   <tbody>
-                    {error
-                      ? <tr><td rowSpan={7}>Something went wrong with your request</td></tr>
-                      : isLoading
-                      ? <tr><td rowSpan={7}>Loading</td></tr>
-                      : data.map((user) => (
-                          <tr key={user.idst}>
-                            <td>
-                              <img
-                                src={demo_mngr}
-                                className="img-circle img-xs"
-                                alt=""
-                              />
-                            </td>
-                            <td>
-                              <Link to="/#">{`${user.firstname} ${user.lastname}`}</Link>
-                            </td>
-                            <td>Manager</td>
-                            <td>HR Assistant</td>
-                            <td>500xp</td>
-                            <td>20%</td>
-                            <td>
-                              <Link to="/#">Edit</Link> |
-                              <Link to="/#">Del</Link>
-                            </td>
-                          </tr>
-                        ))}
+                    {error ? (
+                      <tr>
+                        <td rowSpan={7}>
+                          Something went wrong with your request
+                        </td>
+                      </tr>
+                    ) : isLoading ? (
+                      <tr>
+                        <td rowSpan={7}>Loading</td>
+                      </tr>
+                    ) : (
+                      data.map((user) => (
+                        <tr key={user.idst}>
+                          <td>
+                            <img
+                              src={demo_mngr}
+                              className="img-circle img-xs"
+                              alt=""
+                            />
+                          </td>
+                          <td>
+                            <Link to="/#">{`${user.firstname} ${user.lastname}`}</Link>
+                          </td>
+                          <td>Manager</td>
+                          <td>HR Assistant</td>
+                          <td>500xp</td>
+                          <td>20%</td>
+                          <td>
+                            <Link to="/#">Edit</Link> |<Link to="/#">Del</Link>
+                          </td>
+                        </tr>
+                      ))
+                    )}
                   </tbody>
                 </table>
               </div>

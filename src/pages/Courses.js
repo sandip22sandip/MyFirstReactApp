@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 
 import course10 from "../assets/images/course-imgs/course10.jpg";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
+import useDebounce from "../customhooks/useDebounce.js";
+
 function Courses() {
-  const { isLoading, error, data } = useQuery(["courses"], () =>
+  const [query, setQuery] = useState("");
+
+  const searchValue = useDebounce(query, 500);
+
+  const { isLoading, error, data } = useQuery(["courses", searchValue], () =>
     axios
       .get("/rest.php", {
         params: {
@@ -15,11 +21,17 @@ function Courses() {
         },
       })
       .then((res) => {
+        if (searchValue.length === 0 || searchValue.length > 2) {
+          const keys = ["course_name"];
+          return res.data["course_info"].filter((item) =>
+            keys.some((key) => item[key].toLowerCase().includes(searchValue))
+          );
+        }
+
         return res.data["course_info"];
       })
   );
-  // console.log(data)
-  // data.map((course) => ( console.log(course)))
+  console.log(data);
 
   return (
     <div className="content-page">
@@ -56,6 +68,7 @@ function Courses() {
                     type="text"
                     className="form-control"
                     placeholder="Search..."
+                    onChange={(e) => setQuery(e.target.value.toLowerCase())}
                   />
                   <span className="input-group-btn">
                     <button

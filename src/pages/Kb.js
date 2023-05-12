@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 function Kb() {
   return (
@@ -20,9 +20,9 @@ function Kb() {
                 <div className="input-group content-group">
                   <div className="has-feedback has-feedback-left">
                     <input
+                      name="searchkb"
                       type="text"
                       className="form-control input-xlg"
-                      defaultValue
                       placeholder="Start searching..."
                     />
                   </div>

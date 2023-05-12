@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 // import { Link } from 'react-router-dom';
 
@@ -7,8 +7,14 @@ import course1 from "../assets/images/course-imgs/course1.jpg";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
+import useDebounce from "../customhooks/useDebounce.js";
+
 function FindACourse() {
-  const { isLoading, error, data } = useQuery(["AllCourses"], () =>
+  const [query, setQuery] = useState("");
+
+  const searchValue = useDebounce(query, 500);
+
+  const { isLoading, error, data } = useQuery(["AllCourses" ,searchValue], () =>
     axios
       .get("/rest.php", {
         params: {
@@ -17,6 +23,13 @@ function FindACourse() {
         },
       })
       .then((res) => {
+        if (searchValue.length === 0 || searchValue.length > 2) {
+          const keys = ["course_name"];
+          return res.data["course_info"].filter((item) =>
+            keys.some((key) => item[key].toLowerCase().includes(searchValue))
+          );
+        }
+
         return res.data["course_info"];
       })
   );
@@ -31,10 +44,7 @@ function FindACourse() {
                 <div className="col-sm-4">
                   <div className="row">
                     <div className="col-sm-6">
-                      <select
-                        id="filterCourses"
-                        className="filter form-control"
-                      >
+                      <select id="filterTypes" className="filter form-control">
                         <option value="all">All Types</option>
                         <option value="online">E-Learning</option>
                         <option value="class">Classroom</option>
@@ -43,10 +53,7 @@ function FindACourse() {
                       <i className="fa fa-filter text-muted" />
                     </div>
                     <div className="col-sm-6">
-                      <select
-                        id="filterCourses"
-                        className="filter form-control"
-                      >
+                      <select id="filterCat" className="filter form-control">
                         <option value="all">All Categories</option>
                         <option value="online">Finance</option>
                         <option value="class">Communication</option>
@@ -73,6 +80,7 @@ function FindACourse() {
                         type="text"
                         className="form-control"
                         placeholder="Search..."
+                        onChange={(e) => setQuery(e.target.value.toLowerCase())}
                       />
                       <span className="input-group-btn">
                         <button

@@ -279,11 +279,7 @@ function Vacancies() {
                     <div className="panel-body p-t-0">
                       <hr className="m-t-0" />
                       <div className="m-b-30">
-                        <span
-                          className="label text-dark"
-                          title="Company"
-                          id="company"
-                        >
+                        <span className="label text-dark" title="Company">
                           Ref CD123457
                         </span>
                         <span
@@ -295,28 +291,24 @@ function Vacancies() {
                         <span
                           className="label label-info"
                           title="Job Type Classification"
-                          id="jobType"
                         >
                           Type: Permanent
                         </span>
                         <span
                           className="label label-info"
                           title="Location - Town / City"
-                          id="city"
                         >
                           Location: Johannesburg North
                         </span>
                         <span
                           className="label label-info"
                           title="Location - Province"
-                          id="province"
                         >
                           Province: Gauteng
                         </span>
                         <span
                           className="label label-info"
                           title="Location - Country"
-                          id="country"
                         >
                           Country: South Africa
                         </span>
@@ -405,9 +397,9 @@ function Vacancies() {
                       <div className="input-group content-group">
                         <div className="has-feedback has-feedback-left">
                           <input
+                            name="search"
                             type="text"
                             className="form-control input-xlg"
-                            defaultValue
                             placeholder="Start searching..."
                           />
                         </div>
@@ -423,28 +415,28 @@ function Vacancies() {
                     </div>
                     {/*========== filter ==========*/}
                     <div className="form-group">
-                      <select className="form-control filter">
-                        <option>- Show all Departments -</option>
-                        <option>Finance</option>
-                        <option>Sales</option>
-                        <option>Marketing</option>
-                        <option>Education</option>
-                        <option>Administration</option>
+                      <select name="depFilter" className="form-control filter">
+                        <option value="">- Show all Departments -</option>
+                        <option value="Finance">Finance</option>
+                        <option value="Sales">Sales</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Education">Education</option>
+                        <option value="Administration">Administration</option>
                       </select>
                       <i className="fa fa-filter" />
                     </div>
                     <div className="form-group">
-                      <select className="form-control filter">
-                        <option>- Show all Provinces -</option>
-                        <option>Easter Cape</option>
-                        <option>Free State</option>
-                        <option>Gauteng</option>
-                        <option>KwaZulu-Natal</option>
-                        <option>Limpopo</option>
-                        <option>Mpumalanga</option>
-                        <option>Northern Cape</option>
-                        <option>North-West</option>
-                        <option>Western Cape</option>
+                      <select name="provFilter" className="form-control filter">
+                        <option value="">- Show all Provinces -</option>
+                        <option value="Easter Cape">Easter Cape</option>
+                        <option value="Free State">Free State</option>
+                        <option value="Gauteng">Gauteng</option>
+                        <option value="KwaZulu-Natal">KwaZulu-Natal</option>
+                        <option value="Limpopo">Limpopo</option>
+                        <option value="Mpumalanga">Mpumalanga</option>
+                        <option value="Northern Cape">Northern Cape</option>
+                        <option value="North-West">North-West</option>
+                        <option value="Western Cape">Western Cape</option>
                       </select>
                       <i className="fa fa-filter" />
                     </div>

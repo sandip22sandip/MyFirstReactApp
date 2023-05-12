@@ -6,32 +6,33 @@ import {
   Navigate,
 } from "react-router-dom";
 
+import React, { Suspense, useContext } from "react";
+import { AuthContext } from "./context/authContext";
+
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import Footer from "./components/Footer";
 import Modals from "./components/Modals";
 
 import Login from "./pages/Login";
-import Main from "./pages/Main";
-import Feed from "./pages/Feed";
-import Calendar from "./pages/Calendar";
-import FindACourse from "./pages/FindACourse";
-import Leaderboard from "./pages/Leaderboard";
-import ServicesProducts from "./pages/ServicesProducts";
-import Kb from "./pages/Kb";
-import Vacancies from "./pages/Vacancies";
-import Rewards from "./pages/Rewards";
-import Courses from "./pages/Courses";
-import MyTeam from "./pages/MyTeam";
-import Profile from "./pages/Profile";
-import Course from "./pages/Course";
-import { useContext } from "react";
-import { AuthContext } from "./context/authContext";
-
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 function App() {
-  
+  const Main = React.lazy(() => import("./pages/Main"));
+  const Feed = React.lazy(() => import("./pages/Feed"));
+  const Calendar = React.lazy(() => import("./pages/Calendar"));
+  const FindACourse = React.lazy(() => import("./pages/FindACourse"));
+  const Leaderboard = React.lazy(() => import("./pages/Leaderboard"));
+  const ServicesProducts = React.lazy(() => import("./pages/ServicesProducts"));
+  const Kb = React.lazy(() => import("./pages/Kb"));
+  const Vacancies = React.lazy(() => import("./pages/Vacancies"));
+  const Rewards = React.lazy(() => import("./pages/Rewards"));
+  const Courses = React.lazy(() => import("./pages/Courses"));
+  const Course = React.lazy(() => import("./pages/Course"));
+  const MyTeam = React.lazy(() => import("./pages/MyTeam"));
+  const Profile = React.lazy(() => import("./pages/Profile"));
+
   const { currentUser } = useContext(AuthContext);
 
   const queryClient = new QueryClient();
@@ -70,59 +71,115 @@ function App() {
       children: [
         {
           path: "/",
-          element: <Main />,
+          element: (
+            <Suspense fallback={<div>Loading...</div>}>
+              <Main />
+            </Suspense>
+          ),
         },
         {
           path: "/main",
-          element: <Main />,
+          element: (
+            <Suspense fallback={<div>Loading...</div>}>
+              <Main />
+            </Suspense>
+          ),
         },
         {
           path: "/profile",
-          element: <Profile />,
+          element: (
+            <Suspense fallback={<div>Loading...</div>}>
+              <Profile />
+            </Suspense>
+          ),
         },
         {
           path: "/feed",
-          element: <Feed />,
+          element: (
+            <Suspense fallback={<div>Loading...</div>}>
+              <Feed />
+            </Suspense>
+          ),
         },
         {
           path: "/calendar",
-          element: <Calendar />,
+          element: (
+            <Suspense fallback={<div>Loading...</div>}>
+              <Calendar />
+            </Suspense>
+          ),
         },
         {
           path: "/findacourse",
-          element: <FindACourse />,
+          element: (
+            <Suspense fallback={<div>Loading...</div>}>
+              <FindACourse />
+            </Suspense>
+          ),
         },
         {
           path: "/courses",
-          element: <Courses />,
+          element: (
+            <Suspense fallback={<div>Loading...</div>}>
+              <Courses />
+            </Suspense>
+          ),
         },
         {
           path: "/course/:id",
-          element: <Course />,
+          element: (
+            <Suspense fallback={<div>Loading...</div>}>
+              <Course />
+            </Suspense>
+          ),
         },
         {
           path: "/myteam",
-          element: <MyTeam />,
+          element: (
+            <Suspense fallback={<div>Loading...</div>}>
+              <MyTeam />
+            </Suspense>
+          ),
         },
         {
           path: "/leaderboard",
-          element: <Leaderboard />,
+          element: (
+            <Suspense fallback={<div>Loading...</div>}>
+              <Leaderboard />
+            </Suspense>
+          ),
         },
         {
           path: "/servicesproducts",
-          element: <ServicesProducts />,
+          element: (
+            <Suspense fallback={<div>Loading...</div>}>
+              <ServicesProducts />
+            </Suspense>
+          ),
         },
         {
           path: "/kb",
-          element: <Kb />,
+          element: (
+            <Suspense fallback={<div>Loading...</div>}>
+              <Kb />
+            </Suspense>
+          ),
         },
         {
           path: "/vacancies",
-          element: <Vacancies />,
+          element: (
+            <Suspense fallback={<div>Loading...</div>}>
+              <Vacancies />
+            </Suspense>
+          ),
         },
         {
           path: "/rewards",
-          element: <Rewards />,
+          element: (
+            <Suspense fallback={<div>Loading...</div>}>
+              <Rewards />
+            </Suspense>
+          ),
         },
       ],
     },

@@ -21,10 +21,10 @@ function Leaderboard() {
               </p>
             </div>
             <div className="col-sm-3">
-              <select className="form-control">
-                <option>All Time</option>
-                <option>This Month</option>
-                <option>This Week</option>
+              <select name="filter" className="form-control">
+                <option value="">All Time</option>
+                <option value="month">This Month</option>
+                <option value="week">This Week</option>
               </select>
             </div>
           </div>

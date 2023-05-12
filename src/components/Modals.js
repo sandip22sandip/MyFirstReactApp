@@ -105,7 +105,7 @@ function Modals() {
                   <h6 className="bold">1 New notification</h6>
                   <hr />
                   <div>
-                    <Link to="career_journey" className="list-group-item b-0">
+                    <Link to="/courses" className="list-group-item b-0" data-dismiss="modal">
                       <i className="fa fa-chevron-right pull-right" /> New
                       journey assignment
                     </Link>

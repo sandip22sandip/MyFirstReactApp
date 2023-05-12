@@ -35,7 +35,7 @@ function Main() {
                     <div className="row">
                       <div className="col-xs-10">
                         <h6 className="bold progressTitle">
-                          <Link to="course">
+                          <Link to="/courses">
                             Analysis of Financial Reports
                           </Link>
                         </h6>
@@ -180,8 +180,8 @@ function Main() {
                         </div>
                         <div className="col-md-12 col-lg-6">
                           <form>
-                            <select className="form-control input-sm">
-                              <option>Management</option>
+                            <select name="journySel" className="form-control input-sm">
+                              <option value="Management">Management</option>
                             </select>
                           </form>
                         </div>
@@ -204,8 +204,8 @@ function Main() {
                               style={{ width: "0%" }}
                             />
                           </div>
-                          <Link to="career_journey" title="Set a goal">
-                            <label>Due:</label> No goal set{" "}
+                          <Link to="/main" title="Set a goal">
+                            <span>Due:</span> No goal set
                           </Link>
                         </div>
                       </div>
@@ -230,7 +230,7 @@ function Main() {
                     <div className="col-sm-6">
                       <div className="panel panel-primary bg-primary bg-img1">
                         <div className="panel-body text-center mx-box-xs center-vertical">
-                          <Link to="findacourse">
+                          <Link to="/findacourse">
                             <h5 className="text-white text-uppercase bold m-b-0">
                               Find a course
                             </h5>
@@ -243,7 +243,7 @@ function Main() {
                     <div className="col-sm-6">
                       <div className="panel panel-info bg-default bg-img2">
                         <div className="panel-body text-center mx-box-xs center-vertical">
-                          <Link to="courses">
+                          <Link to="/courses">
                             <h5 className="text-blue text-uppercase bold m-b-0">
                               My Courses
                             </h5>
@@ -258,7 +258,7 @@ function Main() {
                     <div className="col-sm-6">
                       <div className="panel panel-info bg-default bg-img3">
                         <div className="panel-body text-center mx-box-xs center-vertical">
-                          <Link to="vacancies">
+                          <Link to="/vacancies">
                             <h5 className="text-blue text-uppercase bold m-b-0">
                               Available Vacancies
                             </h5>
