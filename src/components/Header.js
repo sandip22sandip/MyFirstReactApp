@@ -1,13 +1,15 @@
 import React, { useContext } from "react";
 
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 import demo_user from "../assets/images/users/demo-user.jpg";
 import company_logo from "../assets/images/company-logo-alt.png";
 import { AuthContext } from "../context/authContext";
 
 function Header() {
-  const { logout } = useContext(AuthContext);
+  const { logout, currentUser } = useContext(AuthContext);
+
+  // console.log(currentUser);
   return (
     <div className="topbar topbar-min" id="topbar">
       {/* Button mobile view to collapse sidebar menu */}
@@ -79,8 +81,8 @@ function Header() {
                         />
                       </div>
                       <div className="col-md-9">
-                        <h6 className="bold">Peter Semenya</h6>
-                        <p>psemenya@oceana.co.za</p>
+                        <h6 className="bold">{`${currentUser.firstname} ${currentUser.lastname}`}</h6>
+                        <p>{currentUser.email}</p>
                       </div>
                     </li>
                     <li>
@@ -92,7 +94,10 @@ function Header() {
                     </li>
                     <li className="divider" />
                     <li>
-                      <Link to="login" onClick={logout}> Sign Out</Link>
+                      <Link to="login" onClick={logout}>
+                        {" "}
+                        Sign Out
+                      </Link>
                     </li>
                   </ul>
                 </li>

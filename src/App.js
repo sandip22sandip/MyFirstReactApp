@@ -94,6 +94,14 @@ function App() {
           ),
         },
         {
+          path: "/profile/:id",
+          element: (
+            <Suspense fallback={<div>Loading...</div>}>
+              <Profile />
+            </Suspense>
+          ),
+        },
+        {
           path: "/feed",
           element: (
             <Suspense fallback={<div>Loading...</div>}>

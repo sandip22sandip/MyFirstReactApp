@@ -23,7 +23,14 @@ function MyTeam() {
       })
       .then((res) => {
         if (searchValue.length === 0 || searchValue.length > 2) {
-          const keys = ["userid", "firstname", "lastname", "FullName"];
+          const keys = [
+            "userid",
+            "firstname",
+            "lastname",
+            "FullName",
+            "userType",
+            "userLevel",
+          ];
           return res.data["users_list"].filter((item) =>
             keys.some((key) => item[key].toLowerCase().includes(searchValue))
           );
@@ -32,7 +39,7 @@ function MyTeam() {
         return res.data["users_list"];
       })
   );
-  // console.log(data);
+  console.log(data);
   // data.map((user) => ( console.log(user)))
 
   return (
@@ -109,7 +116,7 @@ function MyTeam() {
                       <th>Level</th>
                       <th>Position</th>
                       <th>Points</th>
-                      <th>Learning Journey Progress</th>
+                      <th>Course Progress</th>
                       <th>Manage</th>
                     </tr>
                   </thead>
@@ -137,12 +144,13 @@ function MyTeam() {
                           <td>
                             <Link to="/#">{`${user.firstname} ${user.lastname}`}</Link>
                           </td>
-                          <td>Manager</td>
-                          <td>HR Assistant</td>
-                          <td>500xp</td>
-                          <td>20%</td>
+                          <td>{user.userLevel}</td>
+                          <td>{user.userType}</td>
+                          <td>{user.userPoints} XP</td>
+                          <td>{user.courseSummary}</td>
                           <td>
-                            <Link to="/#">Edit</Link> |<Link to="/#">Del</Link>
+                            <Link to={`/profile/${user.idst}`}>Edit</Link> |
+                            <Link to="/#">Del</Link>
                           </td>
                         </tr>
                       ))

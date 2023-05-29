@@ -31,7 +31,7 @@ function Courses() {
         return res.data["course_info"];
       })
   );
-  console.log(data);
+  // console.log(data);
 
   return (
     <div className="content-page">
@@ -114,10 +114,10 @@ function Courses() {
                         <div
                           className="progress-bar progress-bar-secondary"
                           role="progressbar"
-                          aria-valuenow={60}
+                          aria-valuenow={course.CompRatio}
                           aria-valuemin={0}
                           aria-valuemax={100}
-                          style={{ width: "60%" }}
+                          style={{ width: `${course.CompRatio}%` }}
                         ></div>
                       </div>
                       <div className="panel-body hover-desc">
