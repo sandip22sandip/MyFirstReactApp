@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 
 import demo_user from "../assets/images/users/demo-user.jpg";
 import xpicon from "../assets/images/icons/xp-icon.svg";
@@ -9,12 +9,19 @@ import rankicon from "../assets/images/icons/rank-icon.svg";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import CourseProgressMini from "../components/CourseProgressMini";
-import ProfileRewards from "../components/ProfileRewards";
-import ProfileBadges from "../components/ProfileBadges";
-import ProfileChallanges from "../components/ProfileChallanges";
 
 function Profile() {
+  const CourseProgressMini = React.lazy(() =>
+    import("../components/CourseProgressMini")
+  );
+  const ProfileRewards = React.lazy(() =>
+    import("../components/ProfileRewards")
+  );
+  const ProfileBadges = React.lazy(() => import("../components/ProfileBadges"));
+  const ProfileChallanges = React.lazy(() =>
+    import("../components/ProfileChallanges")
+  );
+
   const { isLoading, error, data } = useQuery(["userInfo"], () =>
     axios
       .get("/rest.php", {
@@ -82,13 +89,15 @@ function Profile() {
                         </a>
                       </div>
                     </div>
-                    <h4>{data.FullName}</h4>
+                    <h4>{data?.FullName}</h4>
                     <h6>
-                      {data.userLevel} - {data.userType}
+                      {data?.userLevel} - {data?.userType}
                     </h6>
                   </div>
                 </div>
-                <CourseProgressMini />
+                <Suspense fallback={<div>Loading...</div>}>
+                  <CourseProgressMini />
+                </Suspense>
               </div>
               {/*=========================== right col ===========================*/}
               <div className="col-sm-9">
@@ -102,7 +111,7 @@ function Profile() {
                           className="img-center img-sm img-responsive img-center"
                           alt=""
                         />
-                        <h3 className="bold">{data.points}</h3>
+                        <h3 className="bold">{data?.points}</h3>
                         <p>XP Points</p>
                       </div>
                       <div className="col-sm-3 text-center">
@@ -111,7 +120,7 @@ function Profile() {
                           className="img-center img-sm img-responsive img-center"
                           alt=""
                         />
-                        <h3 className="bold">{data.coins}</h3>
+                        <h3 className="bold">{data?.coins}</h3>
                         <p>Tokens</p>
                       </div>
                       <div className="col-sm-3 text-center">
@@ -120,7 +129,7 @@ function Profile() {
                           className="img-center img-sm img-responsive img-center"
                           alt=""
                         />
-                        <h3 className="bold">{data.TotalBadges}</h3>
+                        <h3 className="bold">{data?.TotalBadges}</h3>
                         <p>Badges</p>
                       </div>
                       <div className="col-sm-3 text-center">
@@ -130,7 +139,7 @@ function Profile() {
                           style={{ height: 50, width: "initial" }}
                           alt=""
                         />
-                        <h3 className="bold">{`${data.rank} / ${data.TotalUsers}`}</h3>
+                        <h3 className="bold">{data?.rank} / {data?.TotalUsers}</h3>
                         <p>Rank</p>
                       </div>
                     </div>
@@ -183,11 +192,17 @@ function Profile() {
                     </div>
                     <div className="custom tab-content">
                       {/*========== challenges ==========*/}
-                      <ProfileChallanges />
+                      <Suspense fallback={<div>Loading...</div>}>
+                        <ProfileChallanges />
+                      </Suspense>
                       {/*========== badges ==========*/}
-                      <ProfileBadges />
+                      <Suspense fallback={<div>Loading...</div>}>
+                        <ProfileBadges />
+                      </Suspense>
                       {/*========== rewards ==========*/}
-                      <ProfileRewards />
+                      <Suspense fallback={<div>Loading...</div>}>
+                        <ProfileRewards />
+                      </Suspense>
                     </div>
                   </div>
                 </div>

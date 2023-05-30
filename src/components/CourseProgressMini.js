@@ -1,13 +1,14 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 function CourseProgressMini() {
   const { isLoading, error, data } = useQuery(["userCPMini"], () =>
     axios
       .get("/rest.php", {
         params: {
-          q: "/restAPI/course/getSubCourses/",
+          q: "/restAPI/course/getSubCoursesMini/",
           auth: sessionStorage.getItem("AuthToken"),
         },
       })
@@ -29,7 +30,9 @@ function CourseProgressMini() {
               <div className="row" key={course.course_id}>
                 <div className="col-xs-10">
                   <h6 className="bold progressTitle">
-                    <a href="course">{course.course_name}</a>
+                    <Link to={`/course/${course.course_id}`}>
+                      {course.course_name}
+                    </Link>
                   </h6>
                 </div>
                 <div className="col-xs-2">

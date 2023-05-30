@@ -1,13 +1,14 @@
-import React, { useContext } from "react";
+import React, { Suspense, useContext } from "react";
 
 import { Link } from "react-router-dom";
 
 import demo_user from "../assets/images/users/demo-user.jpg";
 import HomeSlider from "../components/HomeSlider";
-import CourseProgressMini from "../components/CourseProgressMini";
 import { AuthContext } from "../context/authContext";
 
 function Main() {
+  const CourseProgressMini = React.lazy(() => import("../components/CourseProgressMini"));
+
   const { currentUser } = useContext(AuthContext);
   return (
     <div className="content-page">
@@ -28,12 +29,14 @@ function Main() {
                           alt="demo-user.jpg"
                         />
                       </div>
-                      <h4>{`${currentUser.firstname} ${currentUser.lastname}`}</h4>
+                      <h4>{currentUser?.firstname} {currentUser?.lastname}</h4>
                     </Link>
                   </div>
                 </div>
               </div>
-              <CourseProgressMini />
+              <Suspense fallback={<div>Loading...</div>}>
+                <CourseProgressMini />
+              </Suspense>
             </div>
             <div className="col-sm-9">
               {/*========== carousel ==========*/}

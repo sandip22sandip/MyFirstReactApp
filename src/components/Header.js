@@ -81,8 +81,8 @@ function Header() {
                         />
                       </div>
                       <div className="col-md-9">
-                        <h6 className="bold">{`${currentUser.firstname} ${currentUser.lastname}`}</h6>
-                        <p>{currentUser.email}</p>
+                        <h6 className="bold">{currentUser?.firstname} {currentUser?.lastname}</h6>
+                        <p>{currentUser?.email}</p>
                       </div>
                     </li>
                     <li>
