@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 
-import demo_user from "../assets/images/users/demo-user.jpg";
+import demo_user from "../assets/images/users/no-avatar.jpg";
 import xpicon from "../assets/images/icons/xp-icon.svg";
 import tokenicon from "../assets/images/icons/token-icon.svg";
 import badgesicon from "../assets/images/icons/badges-icon.svg";
@@ -69,8 +69,8 @@ function Profile() {
                     >
                       <img
                         className="img-lg img-circle"
-                        src={demo_user}
-                        alt=""
+                        src={data?.avatar || demo_user}
+                        alt={demo_user}
                       />
                       <div
                         style={{
@@ -139,7 +139,9 @@ function Profile() {
                           style={{ height: 50, width: "initial" }}
                           alt=""
                         />
-                        <h3 className="bold">{data?.rank} / {data?.TotalUsers}</h3>
+                        <h3 className="bold">
+                          {data?.rank} / {data?.TotalUsers}
+                        </h3>
                         <p>Rank</p>
                       </div>
                     </div>

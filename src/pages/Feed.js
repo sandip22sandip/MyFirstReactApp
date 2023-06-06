@@ -20,7 +20,6 @@ function Feed() {
         <div className="container">
           <div className="row">
             <div className="col-sm-3">
-              {/*========== progress-bar-bluee ==========*/}
               <div className="panel panel-default">
                 <div className="panel-body half-bg text-center">
                   <div
@@ -36,7 +35,6 @@ function Feed() {
                   <h4>Peter Semenya</h4>
                   <h6>Business intelligence analyst</h6>
                 </div>
-                {/*========== progress-bar-bluee overview ==========*/}
                 <div className="panel-body">
                   <div className="row text-center">
                     <div className="col-xs-4">
@@ -62,15 +60,11 @@ function Feed() {
                 <div className="panel-footer">
                   <div className="row text-center">
                     <div
-                      className="col-xs-6"
+                      className="col-xs-12"
                       style={{ borderRight: "1px solid #ddd" }}
                     >
                       <h5 className="bold">0/2</h5>
                       <span className="small">Completed Courses</span>
-                    </div>
-                    <div className="col-xs-6">
-                      <h5 className="bold">3/10</h5>
-                      <span className="small">Completed Mission</span>
                     </div>
                   </div>
                 </div>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import course10 from "../assets/images/course-imgs/course10.jpg";
+import noimage from "../assets/images/course-imgs/noimage.png";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -108,16 +108,25 @@ function Courses() {
                             </a>
                           </div>
                         </div>
-                        <img src={course10} alt="course10.jpg" />
+                        <img
+                          src={course.course_logo || noimage}
+                          alt={noimage}
+                        />
                       </div>
                       <div className="progress progress-sm">
                         <div
                           className="progress-bar progress-bar-secondary"
                           role="progressbar"
-                          aria-valuenow={course.CompRatio}
+                          aria-valuenow={
+                            !isNaN(course.CompRatio) && course.CompRatio
+                          }
                           aria-valuemin={0}
                           aria-valuemax={100}
-                          style={{ width: `${course.CompRatio}%` }}
+                          style={{
+                            width: `${
+                              !isNaN(course.CompRatio) && course.CompRatio
+                            }%`,
+                          }}
                         ></div>
                       </div>
                       <div className="panel-body hover-desc">
@@ -160,7 +169,6 @@ function Courses() {
                               </h3>
                             </div>
                             <div className="panel-body">
-                              <h5>{course?.course_name}</h5>
                               <p>{course?.course_description}</p>
                             </div>
                             <div className="panel-footer">

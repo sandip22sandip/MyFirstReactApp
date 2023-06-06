@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 // import { Link } from 'react-router-dom';
 
-import course1 from "../assets/images/course-imgs/course1.jpg";
+import noimage from "../assets/images/course-imgs/noimage.png";
 
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -122,7 +122,7 @@ function FindACourse() {
                             </a>
                           </div>
                         </div>
-                        <img src={course1} alt="..." />
+                        <img src={course.course_logo || noimage} alt={noimage} />
                       </div>
                       <div className="panel-body hover-desc">
                         <div className="small m-b-5" title="topic">

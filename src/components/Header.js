@@ -66,8 +66,8 @@ function Header() {
                     aria-expanded="true"
                   >
                     <img
-                      src={demo_user}
-                      alt="user-img"
+                      src={currentUser?.avatar || demo_user}
+                      alt={demo_user}
                       className="img-circle img-sm img-fit"
                     />{" "}
                   </a>
@@ -75,13 +75,15 @@ function Header() {
                     <li className="row" id="profileDropdown">
                       <div className="col-md-3 text-center">
                         <img
-                          src={demo_user}
-                          alt="user-img"
+                          src={currentUser?.avatar || demo_user}
+                          alt={demo_user}
                           className="img-circle img-sm m-t-10"
                         />
                       </div>
                       <div className="col-md-9">
-                        <h6 className="bold">{currentUser?.firstname} {currentUser?.lastname}</h6>
+                        <h6 className="bold">
+                          {currentUser?.firstname} {currentUser?.lastname}
+                        </h6>
                         <p>{currentUser?.email}</p>
                       </div>
                     </li>

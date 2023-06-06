@@ -1,11 +1,25 @@
 import React from "react";
 
-import avatar2 from "../assets/images/users/avatar-2.png";
-import avatar4 from "../assets/images/users/avatar-4.png";
-import avatar5 from "../assets/images/users/avatar-5.png"
-import avatar6 from "../assets/images/users/avatar-6.png"
+import demo_user from "../assets/images/users/no-avatar.jpg";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 
 function Leaderboard() {
+
+  const { isLoading, error, data } = useQuery(["leaderboard"], () =>
+    axios
+      .get("/rest.php", {
+        params: {
+          q: "/restAPI/reward/getLeaderboard/",
+          auth: sessionStorage.getItem("AuthToken"),
+        },
+      })
+      .then((res) => {
+        return res.data["details"];
+      })
+  );
+  // console.log(data);
+
   return (
     <div className="content-page">
       {/* Start content */}
@@ -29,164 +43,38 @@ function Leaderboard() {
             </div>
           </div>
           <div className="row">
-            {/*=========================== leaderbord ===========================*/}
             <div className="col-md-9">
-              <div className="panel panel-default">
-                <div className="row leaderboard__user p-10">
-                  <div className="col-xs-3 col-sm-2 leaderboard__user__points-position text-center">
-                    <h3 className="bold">#1</h3>
-                  </div>
-                  <div className="visible-xs col-xs-9 leaderboard__user__points-position text-right">
-                    <h3 className="bold">740 XP</h3>
-                  </div>
-                  <div className="col-xs-12 col-sm-8">
-                    <img
-                      src={avatar2}
-                      className="img-sm img-circle pull-left m-r-10" 
-                      alt="avatar-2.png"
-                    />
-                    <h5 className="bold" >
-                      <span className="m-r-15">Elvis Bruintjies</span>
-                      <span className="info-default label label-default engagement low">
-                        Low
-                      </span>
-                    </h5>
-                  </div>
-                  <div className="hidden-xs col-sm-2 leaderboard__user__points-position text-right">
-                    <h3 className="bold">740 XP</h3>
-                  </div>
-                </div>
-              </div>
-              <div className="panel panel-default">
-                <div className="row leaderboard__user p-10">
-                  <div className="col-xs-3 col-sm-2 leaderboard__user__points-position text-center">
-                    <h3 className="bold">#2</h3>
-                  </div>
-                  <div className="visible-xs col-xs-9 leaderboard__user__points-position text-right">
-                    <h3 className="bold">600 XP</h3>
-                  </div>
-                  <div className="col-xs-12 col-sm-8">
-                    <img
-                      src={avatar4}
-                      className="img-sm img-circle pull-left m-r-10"
-                      alt="avatar-4.png"
-                    />
-                    <h5 className="bold" >
-                      <span className="m-r-15">Duncan Mackintosh</span>
-                      <span className="info-default label label-default engagement low">
-                        Average
-                      </span>
-                    </h5>
-                  </div>
-                  <div className="hidden-xs col-sm-2 leaderboard__user__points-position text-right">
-                    <h3 className="bold">600 XP</h3>
-                  </div>
-                </div>
-              </div>
-              <div className="panel panel-default">
-                <div className="row leaderboard__user p-10">
-                  <div className="col-xs-3 col-sm-2 leaderboard__user__points-position text-center">
-                    <h3 className="bold">#3</h3>
-                  </div>
-                  <div className="visible-xs col-xs-9 leaderboard__user__points-position text-right">
-                    <h3 className="bold">500 XP</h3>
-                  </div>
-                  <div className="col-xs-12 col-sm-8">
-                    <img
-                      src={avatar2}
-                      className="img-sm img-circle pull-left m-r-10"
-                      alt="demo-manager.jpg"
-                    />
-                    <h5 className="bold" >
-                      <span className="m-r-15">Tshepi Maleswena</span>
-                      <span className="info-default label label-default engagement low">
-                        Above average
-                      </span>
-                    </h5>
-                  </div>
-                  <div className="hidden-xs col-sm-2 leaderboard__user__points-position text-right">
-                    <h3 className="bold">400 XP</h3>
-                  </div>
-                </div>
-              </div>
-              <div className="panel panel-default">
-                <div className="row leaderboard__user p-10">
-                  <div className="col-xs-3 col-sm-2 leaderboard__user__points-position text-center">
-                    <h3 className="bold">#4</h3>
-                  </div>
-                  <div className="visible-xs col-xs-9 leaderboard__user__points-position text-right">
-                    <h3 className="bold">350 XP</h3>
-                  </div>
-                  <div className="col-xs-12 col-sm-8">
-                    <img
-                      src={avatar5}
-                      className="img-sm img-circle pull-left m-r-10"
-                      alt="avatar-5.png"
-                    />
-                    <h5 className="bold" >
-                      <span className="m-r-15">Stella Krouse</span>
-                      <span className="info-default label label-default engagement low">
-                        High
-                      </span>
-                    </h5>
-                  </div>
-                  <div className="hidden-xs col-sm-2 leaderboard__user__points-position text-right">
-                    <h3 className="bold">350 XP</h3>
-                  </div>
-                </div>
-              </div>
-              <div className="panel panel-default">
-                <div className="row leaderboard__user p-10">
-                  <div className="col-xs-3 col-sm-2 leaderboard__user__points-position text-center">
-                    <h3 className="bold">#5</h3>
-                  </div>
-                  <div className="visible-xs col-xs-9 leaderboard__user__points-position text-right">
-                    <h3 className="bold">250 XP</h3>
-                  </div>
-                  <div className="col-xs-12 col-sm-8">
-                    <img
-                      src={avatar2}
-                      className="img-sm img-circle pull-left m-r-10"
-                      alt="avatar-1.jpg"
-                    />
-                    <h5 className="bold" >
-                      <span className="m-r-15">Yolandi Myburgh</span>
-                      <span className="info-default label label-default engagement low">
-                        Airbrn
-                      </span>
-                    </h5>
-                  </div>
-                  <div className="hidden-xs col-sm-2 leaderboard__user__points-position text-right">
-                    <h3 className="bold">250 XP</h3>
-                  </div>
-                </div>
-              </div>
-              <div className="panel panel-default">
-                <div className="row leaderboard__user p-10">
-                  <div className="col-xs-3 col-sm-2 leaderboard__user__points-position text-center">
-                    <h3 className="bold">#6</h3>
-                  </div>
-                  <div className="visible-xs col-xs-9 leaderboard__user__points-position text-right">
-                    <h3 className="bold">100 XP</h3>
-                  </div>
-                  <div className="col-xs-12 col-sm-8">
-                    <img
-                      src={avatar6}
-                      className="img-sm img-circle pull-left m-r-10"
-                      alt="avatar-6.png"
-                    />
-                    <h5 className="bold" >
-                      <span className="m-r-15">Johan Gates</span>
-                      <span className="info-default label label-default engagement low">
-                        Low
-                      </span>
-                    </h5>
-                  </div>
-                  <div className="hidden-xs col-sm-2 leaderboard__user__points-position text-right">
-                    <h3 className="bold">100 XP</h3>
-                  </div>
-                </div>
-              </div>
+              {error
+                ? "Something went wrong with your request"
+                : isLoading
+                ? "Loading"
+                : data.map((user, i) => (
+                    <div key={user.idst} className="panel panel-default">
+                      <div className="row leaderboard__user p-10">
+                        <div className="col-xs-3 col-sm-2 leaderboard__user__points-position text-center">
+                          <h3 className="bold">#{i + 1}</h3>
+                        </div>
+                        <div className="visible-xs col-xs-9 leaderboard__user__points-position text-right">
+                          <h3 className="bold">{user?.TotalPoints} XP</h3>
+                        </div>
+                        <div className="col-xs-12 col-sm-8">
+                          <img
+                            className="img-sm img-circle pull-left m-r-10"
+                            src={user?.avatar || demo_user}
+                            alt={demo_user}
+                          />
+                          <h5 className="bold">
+                            <span className="m-r-15">
+                              {user?.firstname} {user?.lastname}
+                            </span>
+                          </h5>
+                        </div>
+                        <div className="hidden-xs col-sm-2 leaderboard__user__points-position text-right">
+                          <h3 className="bold">{user?.TotalPoints} XP</h3>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
             </div>
             {/*=========================== challenges ===========================*/}
             <div className="col-md-3">

@@ -2,12 +2,14 @@ import React, { Suspense, useContext } from "react";
 
 import { Link } from "react-router-dom";
 
-import demo_user from "../assets/images/users/demo-user.jpg";
+import demo_user from "../assets/images/users/no-avatar.jpg";
 import HomeSlider from "../components/HomeSlider";
 import { AuthContext } from "../context/authContext";
 
 function Main() {
-  const CourseProgressMini = React.lazy(() => import("../components/CourseProgressMini"));
+  const CourseProgressMini = React.lazy(() =>
+    import("../components/CourseProgressMini")
+  );
 
   const { currentUser } = useContext(AuthContext);
   return (
@@ -25,11 +27,13 @@ function Main() {
                       <div id="ProfileImg">
                         <img
                           className="img-lg img-circle"
-                          src={demo_user}
-                          alt="demo-user.jpg"
+                          src={currentUser?.avatar || demo_user}
+                          alt={demo_user}
                         />
                       </div>
-                      <h4>{currentUser?.firstname} {currentUser?.lastname}</h4>
+                      <h4>
+                        {currentUser?.firstname} {currentUser?.lastname}
+                      </h4>
                     </Link>
                   </div>
                 </div>

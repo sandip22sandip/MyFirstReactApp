@@ -7,7 +7,7 @@ import axios from "axios";
 
 import useDebounce from "../customhooks/useDebounce.js";
 
-import demo_mngr from "../assets/images/users/demo-manager.jpg";
+import demo_user from "../assets/images/users/no-avatar.jpg";
 
 function MyTeam() {
   const [query, setQuery] = useState("");
@@ -136,18 +136,18 @@ function MyTeam() {
                         <tr key={user.idst}>
                           <td>
                             <img
-                              src={demo_mngr}
+                              src={user?.avatar || demo_user}
+                              alt={demo_user}
                               className="img-circle img-xs"
-                              alt=""
                             />
                           </td>
                           <td>
                             <Link to="/#">{`${user.firstname} ${user.lastname}`}</Link>
                           </td>
-                          <td>{user.userLevel}</td>
-                          <td>{user.userType}</td>
-                          <td>{user.userPoints} XP</td>
-                          <td>{user.courseSummary}</td>
+                          <td>{user?.userLevel}</td>
+                          <td>{user?.userType}</td>
+                          <td>{user?.userPoints} XP</td>
+                          <td>{user?.courseSummary}</td>
                           <td>
                             <Link to={`/profile/${user.idst}`}>Edit</Link> |
                             <Link to="/#">Del</Link>
