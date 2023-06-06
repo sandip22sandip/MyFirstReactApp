@@ -1,17 +1,10 @@
-import React, { Suspense, useContext } from "react";
-
+import React, { Suspense } from "react";
 import { Link } from "react-router-dom";
-
-import demo_user from "../assets/images/users/no-avatar.jpg";
 import HomeSlider from "../components/HomeSlider";
-import { AuthContext } from "../context/authContext";
 
 function Main() {
-  const CourseProgressMini = React.lazy(() =>
-    import("../components/CourseProgressMini")
-  );
+  const UserBoxMini = React.lazy(() => import("../components/UserBoxMini"));
 
-  const { currentUser } = useContext(AuthContext);
   return (
     <div className="content-page">
       {/* Start content */}
@@ -20,26 +13,8 @@ function Main() {
           <div className="row">
             <div className="col-sm-3">
               {/*========== profile ovrview ==========*/}
-              <div id="profileOverview" className="panel panel-default">
-                <div className="text-center">
-                  <div className="half-bg p-t-20 p-b-20">
-                    <Link to="/profile">
-                      <div id="ProfileImg">
-                        <img
-                          className="img-lg img-circle"
-                          src={currentUser?.avatar || demo_user}
-                          alt={demo_user}
-                        />
-                      </div>
-                      <h4>
-                        {currentUser?.firstname} {currentUser?.lastname}
-                      </h4>
-                    </Link>
-                  </div>
-                </div>
-              </div>
               <Suspense fallback={<div>Loading...</div>}>
-                <CourseProgressMini />
+                <UserBoxMini />
               </Suspense>
             </div>
             <div className="col-sm-9">

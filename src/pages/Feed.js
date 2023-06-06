@@ -1,8 +1,7 @@
 import React from "react";
 
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
-import demo_user from "../assets/images/users/demo-user.jpg";
 import avatar2 from "../assets/images/users/avatar-2.png";
 import avatar1 from "../assets/images/users/avatar-1.jpg";
 import avatar9 from "../assets/images/users/avatar-9.jpg";
@@ -10,9 +9,13 @@ import performance from "../assets/images/icons/performance.png";
 import accolade from "../assets/images/icons/accolade.png";
 import certificate from "../assets/images/icons/certificate.png";
 import noavatar from "../assets/images/users/no-avatar.jpg";
-
+import { Suspense } from "react";
 
 function Feed() {
+  const UserBoxMini = React.lazy(() =>
+    import("../components/UserBoxMini")
+  );
+
   return (
     <div className="content-page">
       {/* Start content */}
@@ -20,55 +23,9 @@ function Feed() {
         <div className="container">
           <div className="row">
             <div className="col-sm-3">
-              <div className="panel panel-default">
-                <div className="panel-body half-bg text-center">
-                  <div
-                    id="ProfileImg"
-                    style={{ position: "relative", margin: "0 auto" }}
-                  >
-                    <img
-                      className="img-lg img-circle"
-                      src={demo_user}
-                      alt="demo-user.jpg"
-                    />
-                  </div>
-                  <h4>Peter Semenya</h4>
-                  <h6>Business intelligence analyst</h6>
-                </div>
-                <div className="panel-body">
-                  <div className="row text-center">
-                    <div className="col-xs-4">
-                      <p className="text-blue m-0">
-                        <strong>100</strong>
-                      </p>
-                      <p className="m-0">Points</p>
-                    </div>
-                    <div className="col-xs-4">
-                      <p className="text-blue m-0">
-                        <strong>10</strong>
-                      </p>
-                      <p className="m-0">Tokens</p>
-                    </div>
-                    <div className="col-xs-4">
-                      <p className="text-blue m-0">
-                        <strong>3/10</strong>
-                      </p>
-                      <p className="m-0">Rank</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="panel-footer">
-                  <div className="row text-center">
-                    <div
-                      className="col-xs-12"
-                      style={{ borderRight: "1px solid #ddd" }}
-                    >
-                      <h5 className="bold">0/2</h5>
-                      <span className="small">Completed Courses</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <Suspense fallback={<div>Loading...</div>}>
+                <UserBoxMini />
+              </Suspense>
             </div>
             <div className="col-sm-6">
               <div className="panel panel-default">

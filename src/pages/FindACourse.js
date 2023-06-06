@@ -7,7 +7,7 @@ import noimage from "../assets/images/course-imgs/noimage.png";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-import useDebounce from "../customhooks/useDebounce.js";
+import useDebounce from "../utils/useDebounce.js";
 
 function FindACourse() {
   const [query, setQuery] = useState("");

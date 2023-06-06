@@ -7,7 +7,6 @@ import {
 } from "react-router-dom";
 
 import React, { Suspense, useContext } from "react";
-import { AuthContext } from "./context/authContext";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
@@ -33,7 +32,6 @@ function App() {
   const MyTeam = React.lazy(() => import("./pages/MyTeam"));
   const Profile = React.lazy(() => import("./pages/Profile"));
 
-  const { currentUser } = useContext(AuthContext);
 
   const queryClient = new QueryClient();
 

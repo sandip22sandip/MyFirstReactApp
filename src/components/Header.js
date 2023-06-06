@@ -5,11 +5,13 @@ import { Link } from "react-router-dom";
 import demo_user from "../assets/images/users/demo-user.jpg";
 import company_logo from "../assets/images/company-logo-alt.png";
 import { AuthContext } from "../context/authContext";
+import { useSelector } from "react-redux";
 
 function Header() {
-  const { logout, currentUser } = useContext(AuthContext);
+  const { logout } = useContext(AuthContext);
 
-  // console.log(currentUser);
+  const currentUser = useSelector((state) => state.user.userInfo);
+  
   return (
     <div className="topbar topbar-min" id="topbar">
       {/* Button mobile view to collapse sidebar menu */}

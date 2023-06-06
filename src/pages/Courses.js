@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-import useDebounce from "../customhooks/useDebounce.js";
+import useDebounce from "../utils/useDebounce.js";
 
 function Courses() {
   const [query, setQuery] = useState("");
