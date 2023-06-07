@@ -3,9 +3,9 @@ import React from "react";
 import demo_user from "../assets/images/users/no-avatar.jpg";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
+import Spinner from "../utils/Spinner";
 
 function Leaderboard() {
-
   const { isLoading, error, data } = useQuery(["leaderboard"], () =>
     axios
       .get("/rest.php", {
@@ -19,6 +19,18 @@ function Leaderboard() {
       })
   );
   // console.log(data);
+
+  if (isLoading) {
+    return (
+      <div>
+        <Spinner />
+      </div>
+    );
+  }
+
+  if (error) {
+    return <div>Error occurred while fetching data</div>;
+  }
 
   return (
     <div className="content-page">
@@ -44,37 +56,33 @@ function Leaderboard() {
           </div>
           <div className="row">
             <div className="col-md-9">
-              {error
-                ? "Something went wrong with your request"
-                : isLoading
-                ? "Loading"
-                : data.map((user, i) => (
-                    <div key={user.idst} className="panel panel-default">
-                      <div className="row leaderboard__user p-10">
-                        <div className="col-xs-3 col-sm-2 leaderboard__user__points-position text-center">
-                          <h3 className="bold">#{i + 1}</h3>
-                        </div>
-                        <div className="visible-xs col-xs-9 leaderboard__user__points-position text-right">
-                          <h3 className="bold">{user?.TotalPoints} XP</h3>
-                        </div>
-                        <div className="col-xs-12 col-sm-8">
-                          <img
-                            className="img-sm img-circle pull-left m-r-10"
-                            src={user?.avatar || demo_user}
-                            alt={demo_user}
-                          />
-                          <h5 className="bold">
-                            <span className="m-r-15">
-                              {user?.firstname} {user?.lastname}
-                            </span>
-                          </h5>
-                        </div>
-                        <div className="hidden-xs col-sm-2 leaderboard__user__points-position text-right">
-                          <h3 className="bold">{user?.TotalPoints} XP</h3>
-                        </div>
-                      </div>
+              {data.map((user, i) => (
+                <div key={user.idst} className="panel panel-default">
+                  <div className="row leaderboard__user p-10">
+                    <div className="col-xs-3 col-sm-2 leaderboard__user__points-position text-center">
+                      <h3 className="bold">#{i + 1}</h3>
                     </div>
-                  ))}
+                    <div className="visible-xs col-xs-9 leaderboard__user__points-position text-right">
+                      <h3 className="bold">{user?.TotalPoints} XP</h3>
+                    </div>
+                    <div className="col-xs-12 col-sm-8">
+                      <img
+                        className="img-sm img-circle pull-left m-r-10"
+                        src={user?.avatar || demo_user}
+                        alt={demo_user}
+                      />
+                      <h5 className="bold">
+                        <span className="m-r-15">
+                          {user?.firstname} {user?.lastname}
+                        </span>
+                      </h5>
+                    </div>
+                    <div className="hidden-xs col-sm-2 leaderboard__user__points-position text-right">
+                      <h3 className="bold">{user?.TotalPoints} XP</h3>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
             {/*=========================== challenges ===========================*/}
             <div className="col-md-3">

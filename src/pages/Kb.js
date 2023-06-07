@@ -50,7 +50,7 @@ function Kb() {
                   </p>
                   <p>
                     <Link
-                      to="forum"
+                      to="/#"
                       className="btn btn-custom2 waves-light waves-effect"
                     >
                       Visit forum

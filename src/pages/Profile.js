@@ -9,6 +9,7 @@ import rankicon from "../assets/images/icons/rank-icon.svg";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import Spinner from "../utils/Spinner";
 
 function Profile() {
   const CourseProgressMini = React.lazy(() =>
@@ -36,6 +37,18 @@ function Profile() {
   );
   // console.log(data);
 
+  if (isLoading) {
+    return (
+      <div>
+        <Spinner />
+      </div>
+    );
+  }
+
+  if (error) {
+    return <div>Error occurred while fetching data</div>;
+  }
+
   return (
     <div className="content-page">
       {/* Start content */}
@@ -52,11 +65,7 @@ function Profile() {
             <li className="breadcrumb-item active">Profile</li>
           </ul>
           {/*=========================== content ===========================*/}
-          {error ? (
-            "Something went wrong with your request"
-          ) : isLoading ? (
-            "Loading"
-          ) : (
+          {
             <div className="row">
               {/*=========================== left col ===========================*/}
               <div className="col-sm-3">
@@ -210,7 +219,7 @@ function Profile() {
                 </div>
               </div>
             </div>
-          )}
+          }
         </div>
         {/* container */}
       </div>

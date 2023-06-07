@@ -2,6 +2,7 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import demo_user from "../assets/images/users/no-avatar.jpg";
+import Spinner from "../utils/Spinner";
 
 function UserBoxMini() {
   const { isLoading, error, data } = useQuery(["userInfo"], () =>
@@ -18,13 +19,21 @@ function UserBoxMini() {
   );
   // console.log(data);
 
+  if (isLoading) {
+    return (
+      <div>
+        <Spinner />
+      </div>
+    );
+  }
+
+  if (error) {
+    return <div>Error occurred while fetching data</div>;
+  }
+
   return (
     <div className="panel panel-default">
-      {error ? (
-        "Something went wrong with your request"
-      ) : isLoading ? (
-        "Loading"
-      ) : (
+      {
         <>
           <div className="panel-body half-bg text-center">
             <div
@@ -78,7 +87,7 @@ function UserBoxMini() {
             </div>
           </div>
         </>
-      )}
+      }
     </div>
   );
 }
