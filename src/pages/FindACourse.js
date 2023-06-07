@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 
-// import { Link } from 'react-router-dom';
-
 import noimage from "../assets/images/course-imgs/noimage.png";
 
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Spinner from "../utils/Spinner";
+
+import Swal from "sweetalert2";
+import "sweetalert2/dist/sweetalert2.css";
 
 function FindACourse() {
   const [type, setType] = useState("");
@@ -68,8 +69,32 @@ function FindACourse() {
     refetch();
   }, [refetch, cat]);
 
+  const showAlert = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You will be subscribe to the Course!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, subscribe me!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          "Subscribed!",
+          "You have been successfully subscribe to the Course.",
+          "success"
+        );
+      }
+    });
+  };
+
   if (isLoading) {
-    return <div><Spinner/></div>;
+    return (
+      <div>
+        <Spinner />
+      </div>
+    );
   }
 
   if (error) {
@@ -182,6 +207,7 @@ function FindACourse() {
                     <button
                       type="button"
                       className="btn btn-default btn-block waves-effect waves-light"
+                      onClick={showAlert}
                     >
                       Enroll
                     </button>

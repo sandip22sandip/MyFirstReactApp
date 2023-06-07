@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import demo_user from "../assets/images/users/no-avatar.jpg";
 import axios from "axios";
@@ -6,12 +6,15 @@ import { useQuery } from "@tanstack/react-query";
 import Spinner from "../utils/Spinner";
 
 function Leaderboard() {
-  const { isLoading, error, data } = useQuery(["leaderboard"], () =>
+  const [filter, setFilter] = useState("");
+
+  const { isLoading, error, data, refetch } = useQuery(["leaderboard"], () =>
     axios
       .get("/rest.php", {
         params: {
           q: "/restAPI/reward/getLeaderboard/",
           auth: sessionStorage.getItem("AuthToken"),
+          filter: filter
         },
       })
       .then((res) => {
@@ -19,6 +22,10 @@ function Leaderboard() {
       })
   );
   // console.log(data);
+
+  useEffect(() => {
+    refetch();
+  }, [refetch, filter]);
 
   if (isLoading) {
     return (
@@ -47,15 +54,20 @@ function Leaderboard() {
               </p>
             </div>
             <div className="col-sm-3">
-              <select name="filter" className="form-control">
+              <select
+                name="filter"
+                className="form-control"
+                onChange={(e) => setFilter(e.target.value)}
+              >
                 <option value="">All Time</option>
-                <option value="month">This Month</option>
+                <option value="day">Today</option>
                 <option value="week">This Week</option>
+                <option value="month">This Month</option>
               </select>
             </div>
           </div>
           <div className="row">
-            <div className="col-md-9">
+            <div className="col-md-12">
               {data.map((user, i) => (
                 <div key={user.idst} className="panel panel-default">
                   <div className="row leaderboard__user p-10">
@@ -83,37 +95,6 @@ function Leaderboard() {
                   </div>
                 </div>
               ))}
-            </div>
-            {/*=========================== challenges ===========================*/}
-            <div className="col-md-3">
-              <div className="p-10">
-                <h5>Get to the top!</h5>
-                <p>Do challenges to earn more points and rank higher.</p>
-                <div className="m-t-15 m-b-15">
-                  <span>
-                    0/1 <a href="/#">Onboarding Tutorial Challenge</a>
-                  </span>
-                  <p className="small">Points: 100 | Coins: 20</p>
-                </div>
-                <div className="m-t-15 m-b-15">
-                  <span>
-                    0/1 <a href="/#">Staff Survey Challenge</a>
-                  </span>
-                  <p className="small">Points: 500 | Coins: 50</p>
-                </div>
-                <div className="m-t-15 m-b-15">
-                  <span>
-                    0/1 <a href="/#">Oceana LMS Poll Challenge</a>
-                  </span>
-                  <p className="small">Points: 250 | Coins: 100</p>
-                </div>
-                <div className="m-t-15 m-b-15">
-                  <span>
-                    0/1 <a href="/#">Comment on 10 Posts</a>
-                  </span>
-                  <p className="small">Points: 150 | Coins: 15</p>
-                </div>
-              </div>
             </div>
           </div>
         </div>{" "}
