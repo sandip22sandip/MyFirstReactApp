@@ -1,45 +1,35 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-// import axios from "axios";
+import { createSlice } from "@reduxjs/toolkit";
 
-const currentUser = JSON.parse(localStorage.getItem("user")) || null;
-
-export const updateUser = createAsyncThunk("users/update", async (user) => {
-  // const response = await axios.post(
-  //   "http://localhost:8800/api/users/1/update",
-  //   user
-  // );
-  // return response.data;
-  return user;
-});
+const initialState = {
+  currentUser: null,
+  loading: false,
+  error: false,
+};
 
 export const userSlice = createSlice({
   name: "user",
-  initialState: {
-    userInfo: {
-      firstname: currentUser?.firstname || "",
-      lastname: currentUser?.lastname || "",
-      email: currentUser?.email || "",
-      avatar: currentUser?.avatar || "",
+  initialState,
+  reducers: {
+    loginStart: (state) => {
+      state.loading = true;
     },
-    pending: null,
-    error: null,
-  },
-  reducers: {},
-  extraReducers: (builder) => {
-    builder
-      .addCase(updateUser.pending, (state) => {
-        state.pending = true;
-        state.error = false;
-      })
-      .addCase(updateUser.fulfilled, (state, action) => {
-        state.userInfo = action.payload;
-        state.pending = false;
-      })
-      .addCase(updateUser.rejected, (state) => {
-        state.pending = false;
-        state.error = true;
-      });
+    loginSuccess: (state, action) => {
+      state.loading = false;
+      state.currentUser = action.payload;
+    },
+    loginFailure: (state) => {
+      state.loading = false;
+      state.error = true;
+    },
+    logout: (state) => {
+      state.currentUser = null;
+      state.loading = false;
+      state.error = false;
+    },
   },
 });
+
+export const { loginStart, loginSuccess, loginFailure, logout } =
+  userSlice.actions;
 
 export default userSlice.reducer;

@@ -4,6 +4,9 @@ import HomeSlider from "../components/HomeSlider";
 
 function Main() {
   const UserBoxMini = React.lazy(() => import("../components/UserBoxMini"));
+  const CourseProgressMini = React.lazy(() =>
+    import("../components/CourseProgressMini")
+  );
 
   return (
     <div className="content-page">
@@ -23,7 +26,7 @@ function Main() {
               {/*========== quick links ==========*/}
               <div className="row m-t-20">
                 <div className="col-sm-6" id="myjourneyDash">
-                  <div id="journeyStatus" className="panel panel-default">
+                  <div id="journeyStatus" className="">
                     <div className="panel-heading bg-custom1">
                       <div className="row">
                         <div className="col-md-12 col-lg-6">
@@ -31,54 +34,12 @@ function Main() {
                             My Journey Progress:
                           </h2>
                         </div>
-                        <div className="col-md-12 col-lg-6">
-                          <form>
-                            <select
-                              name="journySel"
-                              className="form-control input-sm"
-                            >
-                              <option value="Management">Management</option>
-                            </select>
-                          </form>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="panel-body">
-                      <div className="row">
-                        <div className="col-md-12">
-                          <h6 className="bold">
-                            Store Manager
-                            <span className="matrixPercent pull-right">0%</span>
-                          </h6>
-                          <div className="progress progress-sm">
-                            <div
-                              className="progress-bar progress-bar-info"
-                              role="progressbar"
-                              aria-valuenow={89}
-                              aria-valuemin={0}
-                              aria-valuemax={100}
-                              style={{ width: "0%" }}
-                            />
-                          </div>
-                          <Link to="/main" title="Set a goal">
-                            <span>Due:</span> No goal set
-                          </Link>
-                        </div>
                       </div>
                     </div>
                   </div>
-                  <div id="xpGained" className="panel panel-default">
-                    <div className="panel-heading bg-custom1">
-                      <h5 className="panel-title text-white">
-                        Experience Gained
-                      </h5>
-                    </div>
-                    <div className="panel-body text-center">
-                      <h3 className="panel-title">No experienced gained yet</h3>
-                      Complete courses within your journey to gain experience in
-                      specific fields
-                    </div>
-                  </div>
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <CourseProgressMini />
+                  </Suspense>
                 </div>
                 <div className="col-sm-6">
                   <div className="row">

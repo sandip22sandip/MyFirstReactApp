@@ -1,15 +1,10 @@
 import axios from "axios";
-import { createContext, useEffect, useState } from "react";
+import { createContext } from "react";
 import CryptoJS from "crypto-js";
 
 export const AuthContext = createContext();
 
 export const AuthContexProvider = ({ children }) => {
-  
-  const [currentUser, setCurrentUser] = useState(
-    JSON.parse(localStorage.getItem("user")) || null
-  );
-
   const login = async (inputs) => {
     var username = inputs.username;
     var password = inputs.password;
@@ -22,29 +17,28 @@ export const AuthContexProvider = ({ children }) => {
         password: md5Hash.toString(),
       },
     });
-    if (res.data.userInfo !== undefined) setCurrentUser(res.data.userInfo);
-    
+
     if (res.data.token !== undefined)
       sessionStorage.setItem("AuthToken", res.data.token);
-
-    // console.log(currentUser)
 
     return res.data;
   };
 
-  const logout = async () => {
+  const logoutAuth = async () => {
+    const res = await axios.get("rest.php", {
+      params: {
+        q: "/restAPI/auth/authLogout",
+        auth: sessionStorage.getItem("AuthToken"),
+      },
+    });
+
     sessionStorage.removeItem("AuthToken");
-    setCurrentUser(null);
     delete axios.defaults.headers.common["Authorization"];
+    return res.data;
   };
 
-  useEffect(() => {
-    // console.log(currentUser)
-    localStorage.setItem("user", JSON.stringify(currentUser));
-  }, [currentUser]);
-
   return (
-    <AuthContext.Provider value={{ currentUser, login, logout }}>
+    <AuthContext.Provider value={{ login, logoutAuth }}>
       {children}
     </AuthContext.Provider>
   );

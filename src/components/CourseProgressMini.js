@@ -55,9 +55,9 @@ function CourseProgressMini() {
               </div>
             ))}
       </div>
-      <div className="panel-footer">
+      <div className="panel-footer" style={{ marginBottom: 14 }}>
         <div className="row text-center">
-          <div className="col-xs-12" style={{ borderRight: "1px solid #ddd" }}>
+          <div className="col-xs-12">
             {/* <h5 className="bold">{`${data["CompC"]} / ${data["TotalC"]}`}</h5> */}
             <h5 className="bold">
               {data && data["CompC"]} / {data && data["TotalC"]}

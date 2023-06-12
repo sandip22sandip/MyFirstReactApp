@@ -16,6 +16,8 @@ import Footer from "./components/Footer";
 import Modals from "./components/Modals";
 
 import Login from "./pages/Login";
+import NotFoundPage from "./utils/NotFoundPage";
+import { useSelector } from "react-redux";
 
 function App() {
   const Main = React.lazy(() => import("./pages/Main"));
@@ -31,7 +33,6 @@ function App() {
   const Course = React.lazy(() => import("./pages/Course"));
   const MyTeam = React.lazy(() => import("./pages/MyTeam"));
   const Profile = React.lazy(() => import("./pages/Profile"));
-
 
   const queryClient = new QueryClient();
 
@@ -52,7 +53,13 @@ function App() {
   };
 
   const ProtectedRoute = ({ children }) => {
-    if (sessionStorage.getItem("AuthToken") === null) {
+    const currentUser = useSelector((state) => state.user.currentUser);
+
+    if (
+      sessionStorage.getItem("AuthToken") === null ||
+      sessionStorage.getItem("AuthToken") === undefined ||
+      !currentUser
+    ) {
       return <Navigate to="/login" />;
     }
 
@@ -193,6 +200,7 @@ function App() {
       path: "/login",
       element: <Login />,
     },
+    { path: "*", element: <NotFoundPage /> },
   ]);
 
   return (

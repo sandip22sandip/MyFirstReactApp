@@ -142,15 +142,16 @@ function MyTeam() {
                             />
                           </td>
                           <td>
-                            <Link to="/#">{`${user.firstname} ${user.lastname}`}</Link>
+                            <Link
+                              to={`/profile/${user.idst}`}
+                            >{`${user.firstname} ${user.lastname}`}</Link>
                           </td>
                           <td>{user?.userLevel}</td>
                           <td>{user?.userType}</td>
                           <td>{user?.userPoints} XP</td>
                           <td>{user?.courseSummary}</td>
                           <td>
-                            <Link to={`/profile/${user.idst}`}>Edit</Link> |
-                            <Link to="/#">Del</Link>
+                            <Link to={`/profile/${user.idst}`}>View</Link>
                           </td>
                         </tr>
                       ))

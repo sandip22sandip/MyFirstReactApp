@@ -14,7 +14,7 @@ function Leaderboard() {
         params: {
           q: "/restAPI/reward/getLeaderboard/",
           auth: sessionStorage.getItem("AuthToken"),
-          filter: filter
+          filter: filter,
         },
       })
       .then((res) => {
@@ -68,33 +68,37 @@ function Leaderboard() {
           </div>
           <div className="row">
             <div className="col-md-12">
-              {data.map((user, i) => (
-                <div key={user.idst} className="panel panel-default">
-                  <div className="row leaderboard__user p-10">
-                    <div className="col-xs-3 col-sm-2 leaderboard__user__points-position text-center">
-                      <h3 className="bold">#{i + 1}</h3>
-                    </div>
-                    <div className="visible-xs col-xs-9 leaderboard__user__points-position text-right">
-                      <h3 className="bold">{user?.TotalPoints} XP</h3>
-                    </div>
-                    <div className="col-xs-12 col-sm-8">
-                      <img
-                        className="img-sm img-circle pull-left m-r-10"
-                        src={user?.avatar || demo_user}
-                        alt={demo_user}
-                      />
-                      <h5 className="bold">
-                        <span className="m-r-15">
-                          {user?.firstname} {user?.lastname}
-                        </span>
-                      </h5>
-                    </div>
-                    <div className="hidden-xs col-sm-2 leaderboard__user__points-position text-right">
-                      <h3 className="bold">{user?.TotalPoints} XP</h3>
+              {data.length === 0 ? (
+                <p>No data found.</p>
+              ) : (
+                data.map((user, i) => (
+                  <div key={user.idst} className="panel panel-default">
+                    <div className="row leaderboard__user p-10">
+                      <div className="col-xs-3 col-sm-2 leaderboard__user__points-position text-center">
+                        <h3 className="bold">#{i + 1}</h3>
+                      </div>
+                      <div className="visible-xs col-xs-9 leaderboard__user__points-position text-right">
+                        <h3 className="bold">{user?.TotalPoints} XP</h3>
+                      </div>
+                      <div className="col-xs-12 col-sm-8">
+                        <img
+                          className="img-sm img-circle pull-left m-r-10"
+                          src={user?.avatar || demo_user}
+                          alt={demo_user}
+                        />
+                        <h5 className="bold">
+                          <span className="m-r-15">
+                            {user?.firstname} {user?.lastname}
+                          </span>
+                        </h5>
+                      </div>
+                      <div className="hidden-xs col-sm-2 leaderboard__user__points-position text-right">
+                        <h3 className="bold">{user?.TotalPoints} XP</h3>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))
+              )}
             </div>
           </div>
         </div>{" "}

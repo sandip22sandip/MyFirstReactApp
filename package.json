@@ -13,6 +13,7 @@
     "crypto-js": "^4.1.1",
     "datatables.net-dt": "^1.13.4",
     "jquery": "^3.6.4",
+    "qs": "^6.11.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
@@ -20,6 +21,7 @@
     "react-redux": "^8.0.7",
     "react-router-dom": "^6.10.0",
     "react-scripts": "5.0.1",
+    "redux-persist": "^6.0.0",
     "sweetalert2": "^11.7.11",
     "web-vitals": "^2.1.4",
     "yup": "^1.1.1"

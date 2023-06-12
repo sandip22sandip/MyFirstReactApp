@@ -32,7 +32,11 @@ function ServicesProducts() {
   };
 
   if (isLoading) {
-    return <div><Spinner/></div>;
+    return (
+      <div>
+        <Spinner />
+      </div>
+    );
   }
 
   if (error) {
@@ -82,7 +86,9 @@ function ServicesProducts() {
           </div>
           {/*=========================== services and products ===========================*/}
           <div className="row">
-            {data &&
+            {data.length === 0 ? (
+              <p>No data found.</p>
+            ) : (
               data.map((product) => (
                 <div
                   key={product.idcontent}
@@ -154,7 +160,8 @@ function ServicesProducts() {
                     </div>
                   </div>
                 </div>
-              ))}
+              ))
+            )}
           </div>
         </div>{" "}
         {/* container */}

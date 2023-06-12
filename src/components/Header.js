@@ -1,17 +1,31 @@
 import React, { useContext } from "react";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import demo_user from "../assets/images/users/demo-user.jpg";
 import company_logo from "../assets/images/company-logo-alt.png";
-import { AuthContext } from "../context/authContext";
 import { useSelector } from "react-redux";
+import { logout } from "../redux/userSlice";
+import { useDispatch } from "react-redux";
+import { AuthContext } from "../context/authContext";
 
 function Header() {
-  const { logout } = useContext(AuthContext);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const currentUser = useSelector((state) => state.user.currentUser);
 
-  const currentUser = useSelector((state) => state.user.userInfo);
-  
+  const { logoutAuth } = useContext(AuthContext);
+
+  const handleLogout = async () => {
+    try {
+      await logoutAuth();
+      dispatch(logout());
+      navigate("/login");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="topbar topbar-min" id="topbar">
       {/* Button mobile view to collapse sidebar menu */}
@@ -98,8 +112,7 @@ function Header() {
                     </li>
                     <li className="divider" />
                     <li>
-                      <Link to="login" onClick={logout}>
-                        {" "}
+                      <Link to="login" onClick={handleLogout}>
                         Sign Out
                       </Link>
                     </li>

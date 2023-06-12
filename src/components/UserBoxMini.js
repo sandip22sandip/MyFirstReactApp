@@ -77,10 +77,7 @@ function UserBoxMini() {
           </div>
           <div className="panel-footer">
             <div className="row text-center">
-              <div
-                className="col-xs-12"
-                style={{ borderRight: "1px solid #ddd" }}
-              >
+              <div className="col-xs-12">
                 <h5 className="bold">{data?.courseSummary}</h5>
                 <span className="small">Completed Courses</span>
               </div>

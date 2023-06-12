@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 
 import noimage from "../assets/images/course-imgs/noimage.png";
 
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import Spinner from "../utils/Spinner";
 
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.css";
+import QueryString from "qs";
 
 function FindACourse() {
   const [type, setType] = useState("");
@@ -15,7 +16,9 @@ function FindACourse() {
   const [search, setSearch] = useState("");
   const [options, setOptions] = useState([]);
 
-  const { isLoading, error, data, refetch } = useQuery(["AllCourses"], () =>
+  const queryClient = useQueryClient();
+
+  const { isLoading, error, data, refetch } = useQuery(["FindACourse"], () =>
     axios
       .get("/rest.php", {
         params: {
@@ -30,6 +33,32 @@ function FindACourse() {
         return res.data["course_info"];
       })
   );
+
+  const mutation = useMutation({
+    mutationFn: (course_id) => {
+      var csData = QueryString.stringify({
+        course_id: course_id,
+      });
+
+      var config = {
+        method: "post",
+        url: "/rest.php",
+        params: {
+          q: "/restAPI/course/addUserSubscription/",
+          auth: sessionStorage.getItem("AuthToken"),
+        },
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        data: csData,
+      };
+
+      return axios(config);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["FindACourse"]);
+    },
+  });
 
   useEffect(() => {
     async function fetchData() {
@@ -69,7 +98,7 @@ function FindACourse() {
     refetch();
   }, [refetch, cat]);
 
-  const showAlert = () => {
+  const showAlert = (course_id) => {
     Swal.fire({
       title: "Are you sure?",
       text: "You will be subscribe to the Course!",
@@ -80,6 +109,7 @@ function FindACourse() {
       confirmButtonText: "Yes, subscribe me!",
     }).then((result) => {
       if (result.isConfirmed) {
+        mutation.mutate(course_id);
         Swal.fire(
           "Subscribed!",
           "You have been successfully subscribe to the Course.",
@@ -101,7 +131,7 @@ function FindACourse() {
     return <div>Error occurred while fetching data</div>;
   }
 
-  // console.log(options);
+  // console.log(data.length);
   // console.log(search);
 
   return (
@@ -163,6 +193,7 @@ function FindACourse() {
                       <span className="input-group-btn">
                         <button
                           id="searchBtn"
+                          name="searchBtn"
                           className="btn btn-secondary waves-effect waves-light"
                           type="button"
                           onClick={handleSearch}
@@ -178,81 +209,87 @@ function FindACourse() {
           </div>
           {/*=========================== courses ===========================*/}
           <div className="row">
-            {data.map((course) => (
-              <div
-                key={course.course_id}
-                className="col-sm-6 col-md-4 col-lg-3 col-xl-2"
-              >
-                <div className="panel panel-default card">
-                  <div className="card-img-thumb">
-                    <div className="overlay">
-                      <div id="card-info-btn" className="card-info-btn">
-                        <a
-                          href="/#"
-                          data-toggle="modal"
-                          data-target={`#courseInfo${course.course_id}`}
-                          className="btn btn-default btn-sm"
-                        >
-                          <i className="fa fa-info" />
-                        </a>
-                      </div>
-                    </div>
-                    <img src={course.course_logo || noimage} alt={noimage} />
-                  </div>
-                  <div className="panel-body hover-desc">
-                    <div className="small m-b-5" title="topic">
-                      <i className="fa fa-bookmark-o" /> {course.course_type}
-                    </div>
-                    <h3 className="panelTitle">{course?.course_name}</h3>
-                    <button
-                      type="button"
-                      className="btn btn-default btn-block waves-effect waves-light"
-                      onClick={showAlert}
-                    >
-                      Enroll
-                    </button>
-                  </div>
-                </div>
-
+            {data.length === 0 ? (
+              <p>No data found.</p>
+            ) : (
+              data.map((course) => (
                 <div
-                  className="modal fade"
-                  id={`courseInfo${course.course_id}`}
+                  key={course.course_id}
+                  className="col-sm-6 col-md-4 col-lg-3 col-xl-2"
                 >
-                  <div className="modal-dialog">
-                    <div className="modal-content p-0 b-0">
-                      <div className="panel panel-color panel-info b-0">
-                        <div className="panel-heading">
-                          <button
-                            type="button"
-                            className="close"
-                            data-dismiss="modal"
-                            aria-hidden="true"
+                  <div className="panel panel-default card">
+                    <div className="card-img-thumb">
+                      <div className="overlay">
+                        <div id="card-info-btn" className="card-info-btn">
+                          <a
+                            href="/#"
+                            data-toggle="modal"
+                            data-target={`#courseInfo${course.course_id}`}
+                            className="btn btn-default btn-sm"
                           >
-                            <i className="fa fa-close" />
-                          </button>
-                          <h3 className="panel-title">{course?.course_name}</h3>
+                            <i className="fa fa-info" />
+                          </a>
                         </div>
-                        <div className="panel-body">
-                          <h5>{course?.course_name}</h5>
-                          <p>{course?.course_description}</p>
-                        </div>
-                        <div className="panel-footer">
-                          <div>
-                            <a
-                              href="/#"
-                              className="btn btn-default waves-light waves-effect"
+                      </div>
+                      <img src={course.course_logo || noimage} alt={noimage} />
+                    </div>
+                    <div className="panel-body hover-desc">
+                      <div className="small m-b-5" title="topic">
+                        <i className="fa fa-bookmark-o" /> {course.course_type}
+                      </div>
+                      <h3 className="panelTitle">{course?.course_name}</h3>
+                      <button
+                        type="button"
+                        className="btn btn-default btn-block waves-effect waves-light"
+                        onClick={() => showAlert(course.course_id)}
+                      >
+                        Enroll
+                      </button>
+                    </div>
+                  </div>
+
+                  <div
+                    className="modal fade"
+                    id={`courseInfo${course.course_id}`}
+                  >
+                    <div className="modal-dialog">
+                      <div className="modal-content p-0 b-0">
+                        <div className="panel panel-color panel-info b-0">
+                          <div className="panel-heading">
+                            <button
+                              type="button"
+                              className="close"
                               data-dismiss="modal"
+                              aria-hidden="true"
                             >
-                              Cancel
-                            </a>
+                              <i className="fa fa-close" />
+                            </button>
+                            <h3 className="panel-title">
+                              {course?.course_name}
+                            </h3>
+                          </div>
+                          <div className="panel-body">
+                            <h5>{course?.course_name}</h5>
+                            <p>{course?.course_description}</p>
+                          </div>
+                          <div className="panel-footer">
+                            <div>
+                              <a
+                                href="/#"
+                                className="btn btn-default waves-light waves-effect"
+                                data-dismiss="modal"
+                              >
+                                Cancel
+                              </a>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
         </div>{" "}
         {/* container */}

@@ -4,11 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
 
 import company_logo from "../assets/images/Oceana_Logo.jpg";
-// import bg1 from "../assets/images/slide/ocean1.png";
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { loginFailure, loginStart, loginSuccess } from "../redux/userSlice";
+import { useDispatch } from "react-redux";
 
 export default function Login() {
   const [err, setError] = useState(null);
@@ -16,7 +17,6 @@ export default function Login() {
   const schema = yup
     .object()
     .shape({
-      // username: yup.string().min(6,"Must be more than 6 characters").max(255).email('Must be a valid E-Mail address').required('username is required'),
       username: yup
         .string()
         .min(6, "Must be more than 6 characters")
@@ -38,31 +38,37 @@ export default function Login() {
     resolver: yupResolver(schema),
   });
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { login } = useContext(AuthContext);
 
   const onSubmit = async (inputs) => {
+    dispatch(loginStart());
     try {
       const loginRes = await login(inputs);
       if (loginRes.error !== undefined) return setError(loginRes.error);
-      navigate("/main");
+
+      if (loginRes.userInfo !== undefined) {
+        dispatch(loginSuccess(loginRes.userInfo));
+        navigate("/main");
+      } else {
+        dispatch(loginFailure());
+      }
     } catch (err) {
-      setError(err);
+      console.log(err);
     }
   };
+
   return (
-    <div
-      className="login-page"
-      // style={{ background: "transparent", backgroundImage: `url(${bg1})` }}
-    >
+    <div className="login-page">
       <div className="wrapper-page">
         <div className="panel panel-default">
           <div className="panel-body">
             <div className="login logo text-center">
               <img src={company_logo} alt="Company Logo" />
             </div>
-            <form className="form-horizontal m-t-20" action="index">
+            <form className="form-horizontal m-t-20">
               <div className="form-group">
                 <div className="col-xs-12">
                   <input

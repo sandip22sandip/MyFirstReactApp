@@ -12,7 +12,7 @@ function Courses() {
   const [status, setStatus] = useState("");
   const [search, setSearch] = useState("");
 
-  const { isLoading, error, data, refetch } = useQuery(["courses"], () =>
+  const { isLoading, error, data, refetch } = useQuery(["SubCourses"], () =>
     axios
       .get("/rest.php", {
         params: {
@@ -41,7 +41,11 @@ function Courses() {
   }, [refetch, status]);
 
   if (isLoading) {
-    return <div><Spinner/></div>;
+    return (
+      <div>
+        <Spinner />
+      </div>
+    );
   }
 
   if (error) {
@@ -116,96 +120,102 @@ function Courses() {
           </div>
           {/*=========================== courses ===========================*/}
           <div className="row">
-            {data.map((course) => (
-              <div
-                key={course.course_id}
-                className="col-sm-6 col-md-4 col-lg-3 col-xl-2"
-              >
-                <div className="panel panel-default card">
-                  <div className="card-img-thumb">
-                    <div className="overlay">
-                      <div id="card-info-btn" className="card-info-btn">
-                        <a
-                          href="/#"
-                          data-toggle="modal"
-                          data-target={`#courseInfo${course.course_id}`}
-                          className="btn btn-default btn-sm"
-                        >
-                          <i className="fa fa-info" />
-                        </a>
-                      </div>
-                    </div>
-                    <img src={course.course_logo || noimage} alt={noimage} />
-                  </div>
-                  <div className="progress progress-sm">
-                    <div
-                      className="progress-bar progress-bar-secondary"
-                      role="progressbar"
-                      aria-valuenow={
-                        !isNaN(course.CompRatio) && course.CompRatio
-                      }
-                      aria-valuemin={0}
-                      aria-valuemax={100}
-                      style={{
-                        width: `${
-                          !isNaN(course.CompRatio) && course.CompRatio
-                        }%`,
-                      }}
-                    ></div>
-                  </div>
-                  <div className="panel-body hover-desc">
-                    <div className="small m-b-5" title="{course.course_name}">
-                      <i className="fa fa-bookmark-o" /> {course.course_type}
-                    </div>
-                    <h3 className="panelTitle">{course?.course_name}</h3>
-                    <Link
-                      to={`/course/${course.course_id}`}
-                      type="button"
-                      className="btn btn-default btn-block waves-effect waves-light"
-                    >
-                      Launch
-                    </Link>
-                  </div>
-                </div>
-
+            {data.length === 0 ? (
+              <p>No data found.</p>
+            ) : (
+              data.map((course) => (
                 <div
-                  className="modal fade"
-                  id={`courseInfo${course.course_id}`}
+                  key={course.course_id}
+                  className="col-sm-6 col-md-4 col-lg-3 col-xl-2"
                 >
-                  <div className="modal-dialog">
-                    <div className="modal-content p-0 b-0">
-                      <div className="panel panel-color panel-info b-0">
-                        <div className="panel-heading">
-                          <button
-                            type="button"
-                            className="close"
-                            data-dismiss="modal"
-                            aria-hidden="true"
+                  <div className="panel panel-default card">
+                    <div className="card-img-thumb">
+                      <div className="overlay">
+                        <div id="card-info-btn" className="card-info-btn">
+                          <a
+                            href="/#"
+                            data-toggle="modal"
+                            data-target={`#courseInfo${course.course_id}`}
+                            className="btn btn-default btn-sm"
                           >
-                            <i className="fa fa-close" />
-                          </button>
-                          <h3 className="panel-title">{course?.course_name}</h3>
+                            <i className="fa fa-info" />
+                          </a>
                         </div>
-                        <div className="panel-body">
-                          <p>{course?.course_description}</p>
-                        </div>
-                        <div className="panel-footer">
-                          <div>
-                            <a
-                              href="/#"
-                              className="btn btn-default waves-light waves-effect"
+                      </div>
+                      <img src={course.course_logo || noimage} alt={noimage} />
+                    </div>
+                    <div className="progress progress-sm">
+                      <div
+                        className="progress-bar progress-bar-secondary"
+                        role="progressbar"
+                        aria-valuenow={
+                          !isNaN(course.CompRatio) && course.CompRatio
+                        }
+                        aria-valuemin={0}
+                        aria-valuemax={100}
+                        style={{
+                          width: `${
+                            !isNaN(course.CompRatio) && course.CompRatio
+                          }%`,
+                        }}
+                      ></div>
+                    </div>
+                    <div className="panel-body hover-desc">
+                      <div className="small m-b-5" title="{course.course_name}">
+                        <i className="fa fa-bookmark-o" /> {course.course_type}
+                      </div>
+                      <h3 className="panelTitle">{course?.course_name}</h3>
+                      <Link
+                        to={`/course/${course.course_id}`}
+                        type="button"
+                        className="btn btn-default btn-block waves-effect waves-light"
+                      >
+                        Launch
+                      </Link>
+                    </div>
+                  </div>
+
+                  <div
+                    className="modal fade"
+                    id={`courseInfo${course.course_id}`}
+                  >
+                    <div className="modal-dialog">
+                      <div className="modal-content p-0 b-0">
+                        <div className="panel panel-color panel-info b-0">
+                          <div className="panel-heading">
+                            <button
+                              type="button"
+                              className="close"
                               data-dismiss="modal"
+                              aria-hidden="true"
                             >
-                              Cancel
-                            </a>
+                              <i className="fa fa-close" />
+                            </button>
+                            <h3 className="panel-title">
+                              {course?.course_name}
+                            </h3>
+                          </div>
+                          <div className="panel-body">
+                            <p>{course?.course_description}</p>
+                          </div>
+                          <div className="panel-footer">
+                            <div>
+                              <a
+                                href="/#"
+                                className="btn btn-default waves-light waves-effect"
+                                data-dismiss="modal"
+                              >
+                                Cancel
+                              </a>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
         </div>{" "}
         {/* container */}
