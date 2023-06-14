@@ -4,12 +4,15 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
 
 import company_logo from "../assets/images/Oceana_Logo.jpg";
+import googleIcon from "../assets/images/icons/google.png";
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { loginFailure, loginStart, loginSuccess } from "../redux/userSlice";
 import { useDispatch } from "react-redux";
+import { auth, provider } from "../firebase";
+import { signInWithPopup } from "firebase/auth";
 
 export default function Login() {
   const [err, setError] = useState(null);
@@ -41,7 +44,7 @@ export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { login } = useContext(AuthContext);
+  const { login, loginWithGoogle } = useContext(AuthContext);
 
   const onSubmit = async (inputs) => {
     dispatch(loginStart());
@@ -58,6 +61,33 @@ export default function Login() {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const signInWithGoogle = async () => {
+    dispatch(loginStart());
+    signInWithPopup(auth, provider)
+      .then(async (result) => {
+        const authData = {
+          name: result.user.displayName,
+          email: result.user.email,
+          img: result.user.photoURL,
+          emailVerified: result.user.emailVerified,
+          accessToken: result.user.accessToken,
+        };
+        const loginRes = await loginWithGoogle(authData);
+        if (loginRes.error !== undefined) return setError(loginRes.error);
+
+        if (loginRes.userInfo !== undefined) {
+          dispatch(loginSuccess(loginRes.userInfo));
+          navigate("/main");
+        } else {
+          dispatch(loginFailure());
+        }
+      })
+      .catch((error) => {
+        dispatch(loginFailure());
+        console.log(error);
+      });
   };
 
   return (
@@ -103,26 +133,46 @@ export default function Login() {
                   )}
                 </div>
               </div>
-              <div className="form-group text-center m-t-40">
-                <div className="col-xs-12">
-                  <button
-                    className="btn btn-secondary btn-block btn-lg w-lg waves-effect waves-light"
-                    type="submit"
-                    onClick={handleSubmit(onSubmit)}
-                  >
-                    Log In
-                  </button>
-                </div>
-              </div>
               {err && <span style={{ color: "red" }}>{err}</span>}
-              <div className="form-group m-t-30">
-                <div className="col-sm-12 text-center">
-                  <a href="recoverpw">
-                    <i className="fa fa-lock m-r-5" /> Forgot your password?
-                  </a>
+              <div style={{ marginTop: "20px" }}>
+                <div className="row d-flex align-items-center">
+                  <div className="col-xs-6" style={{ marginTop: "14px" }}>
+                    <a
+                      data-toggle="modal"
+                      data-target="#resetpw_modal"
+                      href="/#"
+                    >
+                      <i className="fa fa-lock m-r-5" /> Forgot your password?
+                    </a>
+                  </div>
+                  <div className="col-xs-6 text-right">
+                    <button
+                      className="btn btn-secondary btn-lg w-lg waves-effect waves-light"
+                      type="submit"
+                      onClick={handleSubmit(onSubmit)}
+                    >
+                      Log in
+                    </button>
+                  </div>
                 </div>
               </div>
             </form>
+            <div className="m-t-15">
+              <span className="line-thru text-center text-uppercase m-t-15 m-b-15">
+                <span>or</span>
+              </span>
+              <button
+                className="btn btn-default btn-block waves-effect waves-light"
+                onClick={signInWithGoogle}
+              >
+                Log in with{" "}
+                <img
+                  src={googleIcon}
+                  style={{ height: "30px", width: "60px" }}
+                  alt=""
+                />
+              </button>
+            </div>
           </div>
         </div>
       </div>

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import course10 from "../assets/images/course-imgs/course10.jpg";
 import avatar10 from "../assets/images/users/avatar-10.jpg"
 import avatar5 from "../assets/images/users/avatar-5.jpg"
-import demo_user from "../assets/images/users/demo-user.jpg"
+import demo_user from "../assets/images/users/no-avatar.jpg"
 
 function Course() {
   return (

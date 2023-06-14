@@ -24,6 +24,26 @@ export const AuthContexProvider = ({ children }) => {
     return res.data;
   };
 
+  const loginWithGoogle = async (inputs) => {
+    var email = inputs.email;
+    var emailVerified = inputs.emailVerified;
+    var accessToken = inputs.accessToken;
+
+    const res = await axios.get("rest.php", {
+      params: {
+        q: "/restAPI/auth/googleAuth",
+        email: email,
+        emailVerified: emailVerified,
+        accessToken: accessToken,
+      },
+    });
+
+    if (res.data.token !== undefined)
+      sessionStorage.setItem("AuthToken", res.data.token);
+
+    return res.data;
+  };
+
   const logoutAuth = async () => {
     const res = await axios.get("rest.php", {
       params: {
@@ -38,7 +58,7 @@ export const AuthContexProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ login, logoutAuth }}>
+    <AuthContext.Provider value={{ login, logoutAuth, loginWithGoogle }}>
       {children}
     </AuthContext.Provider>
   );

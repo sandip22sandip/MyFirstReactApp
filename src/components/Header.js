@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 
 import { Link, useNavigate } from "react-router-dom";
 
-import demo_user from "../assets/images/users/demo-user.jpg";
+import demo_user from "../assets/images/users/no-avatar.jpg";
 import company_logo from "../assets/images/company-logo-alt.png";
 import { useSelector } from "react-redux";
 import { logout } from "../redux/userSlice";
