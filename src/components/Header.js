@@ -52,6 +52,14 @@ function Header() {
                 id="topicons"
                 className="nav navbar-nav navbar-right pull-right"
               >
+                {/********** CHAT ICON **********/}
+                <li className="hidden-xs">
+                  <Link to="/chatwindow">
+                    <div className="btn btn-circle waves-effect waves-light no-shadow">
+                      <i className="fa fa-comment" />
+                    </div>
+                  </Link>
+                </li>
                 {/********** NOTIFICATION ICON **********/}
                 <li className="hidden-xs">
                   <a

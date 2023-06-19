@@ -1,6 +1,6 @@
 import React from "react";
-import token from "../assets/images/icons/token.png";
-import xpbadge from "../assets/images/icons/xpbadge.png";
+import token from "../../assets/images/icons/token.png";
+import xpbadge from "../../assets/images/icons/xpbadge.png";
 
 function ProfileChallanges() {
   return (

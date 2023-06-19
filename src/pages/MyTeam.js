@@ -39,7 +39,7 @@ function MyTeam() {
         return res.data["users_list"];
       })
   );
-  console.log(data);
+  // console.log(data);
   // data.map((user) => ( console.log(user)))
 
   return (

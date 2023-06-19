@@ -13,14 +13,16 @@ import Spinner from "../utils/Spinner";
 
 function Profile() {
   const CourseProgressMini = React.lazy(() =>
-    import("../components/CourseProgressMini")
+    import("../components/profile-components/CourseProgressMini")
   );
   const ProfileRewards = React.lazy(() =>
-    import("../components/ProfileRewards")
+    import("../components/profile-components/ProfileRewards")
   );
-  const ProfileBadges = React.lazy(() => import("../components/ProfileBadges"));
+  const ProfileBadges = React.lazy(() =>
+    import("../components/profile-components/ProfileBadges")
+  );
   const ProfileChallanges = React.lazy(() =>
-    import("../components/ProfileChallanges")
+    import("../components/profile-components/ProfileChallanges")
   );
 
   const { isLoading, error, data } = useQuery(["userInfo"], () =>

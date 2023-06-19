@@ -33,6 +33,7 @@ function App() {
   const Course = React.lazy(() => import("./pages/Course"));
   const MyTeam = React.lazy(() => import("./pages/MyTeam"));
   const Profile = React.lazy(() => import("./pages/Profile"));
+  const ChatWindow = React.lazy(() => import("./pages/ChatWindow"));
 
   const queryClient = new QueryClient();
 
@@ -199,6 +200,16 @@ function App() {
     {
       path: "/login",
       element: <Login />,
+    },
+    {
+      path: "/chatwindow",
+      element: (
+        <ProtectedRoute>
+          <Suspense fallback={<div>Loading...</div>}>
+            <ChatWindow />
+          </Suspense>
+        </ProtectedRoute>
+      ),
     },
     { path: "*", element: <NotFoundPage /> },
   ]);

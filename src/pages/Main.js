@@ -2,10 +2,15 @@ import React, { Suspense } from "react";
 import { Link } from "react-router-dom";
 import HomeSlider from "../components/HomeSlider";
 
+import bg1 from "../assets/images/backgrounds/question-bg.png";
+import bg2 from "../assets/images/backgrounds/briefcase-bg-dark.png";
+import bg3 from "../assets/images/backgrounds/puzzle-bg-dark.png";
+import bg4 from "../assets/images/backgrounds/search-bg.png";
+
 function Main() {
   const UserBoxMini = React.lazy(() => import("../components/UserBoxMini"));
   const CourseProgressMini = React.lazy(() =>
-    import("../components/CourseProgressMini")
+    import("../components/profile-components/CourseProgressMini")
   );
 
   return (
@@ -45,7 +50,14 @@ function Main() {
                   <div className="row">
                     {/*========== find a course ==========*/}
                     <div className="col-sm-6">
-                      <div className="panel panel-primary bg-primary bg-img1">
+                      <div
+                        className="panel panel-primary bg-primary"
+                        style={{
+                          backgroundImage: `url(${bg4})`,
+                          backgroundRepeat: "no-repeat",
+                          backgroundPosition: "-60px -10px",
+                        }}
+                      >
                         <div className="panel-body text-center mx-box-xs center-vertical">
                           <Link to="/findacourse">
                             <h5 className="text-white text-uppercase bold m-b-0">
@@ -58,7 +70,14 @@ function Main() {
                     </div>
                     {/*========== my courses ==========*/}
                     <div className="col-sm-6">
-                      <div className="panel panel-info bg-default bg-img2">
+                      <div
+                        className="panel panel-info bg-default"
+                        style={{
+                          backgroundImage: `url(${bg3})`,
+                          backgroundRepeat: "no-repeat",
+                          backgroundPosition: "-60px -10px",
+                        }}
+                      >
                         <div className="panel-body text-center mx-box-xs center-vertical">
                           <Link to="/courses">
                             <h5 className="text-blue text-uppercase bold m-b-0">
@@ -73,7 +92,14 @@ function Main() {
                     </div>
                     {/*========== available vacancies ==========*/}
                     <div className="col-sm-6">
-                      <div className="panel panel-info bg-default bg-img3">
+                      <div
+                        className="panel panel-info bg-default"
+                        style={{
+                          backgroundImage: `url(${bg2})`,
+                          backgroundRepeat: "no-repeat",
+                          backgroundPosition: "-60px -10px",
+                        }}
+                      >
                         <div className="panel-body text-center mx-box-xs center-vertical">
                           <Link to="/vacancies">
                             <h5 className="text-blue text-uppercase bold m-b-0">
@@ -87,9 +113,14 @@ function Main() {
                     {/*========== i need help ==========*/}
                     <div className="col-sm-6">
                       <div
-                        className="panel panel-info bg-info bg-img4"
+                        className="panel panel-info bg-info"
                         data-toggle="modal"
                         data-target="#help_modal"
+                        style={{
+                          backgroundImage: `url(${bg1})`,
+                          backgroundRepeat: "no-repeat",
+                          backgroundPosition: "-60px -10px",
+                        }}
                       >
                         <div className="panel-body text-center mx-box-xs center-vertical">
                           <h5 className="text-white text-uppercase bold">
