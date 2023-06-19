@@ -3,12 +3,12 @@ import React, { useEffect, useState } from "react";
 import noimage from "../assets/images/course-imgs/noimage.png";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
 import Spinner from "../utils/Spinner";
 
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.css";
 import QueryString from "qs";
+import { axiosInstance } from "../utils/axiosInstance";
 
 function FindACourse() {
   const [type, setType] = useState("");
@@ -19,7 +19,7 @@ function FindACourse() {
   const queryClient = useQueryClient();
 
   const { isLoading, error, data, refetch } = useQuery(["FindACourse"], () =>
-    axios
+    axiosInstance
       .get("/rest.php", {
         params: {
           q: "/restAPI/course/getUnSubCourses/",
@@ -53,7 +53,7 @@ function FindACourse() {
         data: csData,
       };
 
-      return axios(config);
+      return axiosInstance(config);
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["FindACourse"]);
@@ -63,7 +63,7 @@ function FindACourse() {
   useEffect(() => {
     async function fetchData() {
       // Fetch data
-      const { data } = await axios.get("/rest.php", {
+      const { data } = await axiosInstance.get("/rest.php", {
         params: {
           q: "/restAPI/course/getAllCourseCat/",
           auth: sessionStorage.getItem("AuthToken"),

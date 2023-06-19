@@ -1,10 +1,10 @@
 import React from "react";
-import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
+import { axiosInstance } from "../../utils/axiosInstance";
 
 function ProfileBadges() {
   const { isLoading, error, data } = useQuery(["profileBadges"], () =>
-    axios
+  axiosInstance
       .get("/rest.php", {
         params: {
           q: "/restAPI/reward/getUserBadges/",

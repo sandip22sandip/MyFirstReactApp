@@ -11,7 +11,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { loginFailure, loginStart, loginSuccess } from "../redux/userSlice";
 import { useDispatch } from "react-redux";
-import { auth, provider } from "../firebase";
+import { auth, provider } from "../utils/firebase";
 import { signInWithPopup } from "firebase/auth";
 
 export default function Login() {

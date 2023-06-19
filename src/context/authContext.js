@@ -1,4 +1,4 @@
-import axios from "axios";
+import { axiosInstance } from "../utils/axiosInstance";
 import { createContext } from "react";
 import CryptoJS from "crypto-js";
 
@@ -10,7 +10,7 @@ export const AuthContexProvider = ({ children }) => {
     var password = inputs.password;
     var md5Hash = CryptoJS.MD5(password);
 
-    const res = await axios.get("rest.php", {
+    const res = await axiosInstance.get("rest.php", {
       params: {
         q: "/restAPI/auth/authenticate",
         username: username,
@@ -29,7 +29,7 @@ export const AuthContexProvider = ({ children }) => {
     var emailVerified = inputs.emailVerified;
     var accessToken = inputs.accessToken;
 
-    const res = await axios.get("rest.php", {
+    const res = await axiosInstance.get("rest.php", {
       params: {
         q: "/restAPI/auth/googleAuth",
         email: email,
@@ -45,7 +45,7 @@ export const AuthContexProvider = ({ children }) => {
   };
 
   const logoutAuth = async () => {
-    const res = await axios.get("rest.php", {
+    const res = await axiosInstance.get("rest.php", {
       params: {
         q: "/restAPI/auth/authLogout",
         auth: sessionStorage.getItem("AuthToken"),
@@ -53,7 +53,7 @@ export const AuthContexProvider = ({ children }) => {
     });
 
     sessionStorage.removeItem("AuthToken");
-    delete axios.defaults.headers.common["Authorization"];
+    delete axiosInstance.defaults.headers.common["Authorization"];
     return res.data;
   };
 

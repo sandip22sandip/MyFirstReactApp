@@ -1,11 +1,11 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { Link } from "react-router-dom";
+import { axiosInstance } from "../../utils/axiosInstance";
 
 function CourseProgressMini() {
   const { isLoading, error, data } = useQuery(["userCPMini"], () =>
-    axios
+  axiosInstance
       .get("/rest.php", {
         params: {
           q: "/restAPI/course/getSubCoursesMini/",

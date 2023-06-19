@@ -2,10 +2,10 @@ import React, { useState } from "react";
 
 import noimage from "../assets/images/course-imgs/noimage.png";
 
-import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import Spinner from "../utils/Spinner";
+import { axiosInstance } from "../utils/axiosInstance";
 
 function ServicesProducts() {
   const [search, setSearch] = useState("");
@@ -13,7 +13,7 @@ function ServicesProducts() {
   const { isLoading, error, data, refetch } = useQuery(
     ["ServicesProducts"],
     () =>
-      axios
+      axiosInstance
         .get("/rest.php", {
           params: {
             q: "/restAPI/reward/getServicesProducts/",

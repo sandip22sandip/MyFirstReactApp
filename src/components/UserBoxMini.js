@@ -1,12 +1,12 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import demo_user from "../assets/images/users/no-avatar.jpg";
 import Spinner from "../utils/Spinner";
+import { axiosInstance } from "../utils/axiosInstance";
 
 function UserBoxMini() {
   const { isLoading, error, data } = useQuery(["userInfo"], () =>
-    axios
+    axiosInstance
       .get("/rest.php", {
         params: {
           q: "/restAPI/user/getUserDetails/",

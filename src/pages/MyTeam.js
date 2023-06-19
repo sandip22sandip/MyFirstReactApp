@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import { axiosInstance } from "../utils/axiosInstance";
 
 import useDebounce from "../utils/useDebounce.js";
 
@@ -14,7 +14,7 @@ function MyTeam() {
 
   const searchValue = useDebounce(query, 500);
   const { isLoading, error, data } = useQuery(["MyTeam", searchValue], () =>
-    axios
+    axiosInstance
       .get("/rest.php", {
         params: {
           q: "/restAPI/user/getUsersList/",

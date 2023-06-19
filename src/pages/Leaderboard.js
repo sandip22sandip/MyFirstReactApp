@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 
 import demo_user from "../assets/images/users/no-avatar.jpg";
-import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import Spinner from "../utils/Spinner";
+import { axiosInstance } from "../utils/axiosInstance";
 
 function Leaderboard() {
   const [filter, setFilter] = useState("");
 
   const { isLoading, error, data, refetch } = useQuery(["leaderboard"], () =>
-    axios
+    axiosInstance
       .get("/rest.php", {
         params: {
           q: "/restAPI/reward/getLeaderboard/",

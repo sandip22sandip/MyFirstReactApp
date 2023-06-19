@@ -8,8 +8,8 @@ import rankicon from "../assets/images/icons/rank-icon.svg";
 
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import Spinner from "../utils/Spinner";
+import { axiosInstance } from "../utils/axiosInstance";
 
 function Profile() {
   const CourseProgressMini = React.lazy(() =>
@@ -26,7 +26,7 @@ function Profile() {
   );
 
   const { isLoading, error, data } = useQuery(["userInfo"], () =>
-    axios
+    axiosInstance
       .get("/rest.php", {
         params: {
           q: "/restAPI/user/getUserDetails/",

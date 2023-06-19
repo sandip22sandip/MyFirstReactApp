@@ -3,9 +3,9 @@ import React, { useState } from "react";
 import noimage from "../assets/images/course-imgs/noimage.png";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { useEffect } from "react";
 import Spinner from "../utils/Spinner";
+import { axiosInstance } from "../utils/axiosInstance";
 
 function Courses() {
   const [type, setType] = useState("");
@@ -13,7 +13,7 @@ function Courses() {
   const [search, setSearch] = useState("");
 
   const { isLoading, error, data, refetch } = useQuery(["SubCourses"], () =>
-    axios
+  axiosInstance
       .get("/rest.php", {
         params: {
           q: "/restAPI/course/getSubCourses/",
