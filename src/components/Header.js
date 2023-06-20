@@ -8,6 +8,8 @@ import { useSelector } from "react-redux";
 import { logout } from "../redux/userSlice";
 import { useDispatch } from "react-redux";
 import { AuthContext } from "../context/authContext";
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import { db } from "../utils/firebase";
 
 function Header() {
   const dispatch = useDispatch();
@@ -21,6 +23,18 @@ function Header() {
       await logoutAuth();
       dispatch(logout());
       navigate("/login");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleChat = async () => {
+    try {
+      const resUserChats = await getDoc(doc(db, "userChats", currentUser.idst));
+      if (!resUserChats.exists()) {
+        await setDoc(doc(db, "userChats", currentUser.idst), {});
+      }
+      navigate("/chatwindow");
     } catch (err) {
       console.log(err);
     }
@@ -54,11 +68,11 @@ function Header() {
               >
                 {/********** CHAT ICON **********/}
                 <li className="hidden-xs">
-                  <Link to="/chatwindow">
+                  <span onClick={handleChat}>
                     <div className="btn btn-circle waves-effect waves-light no-shadow">
                       <i className="fa fa-comment" />
                     </div>
-                  </Link>
+                  </span>
                 </li>
                 {/********** NOTIFICATION ICON **********/}
                 <li className="hidden-xs">

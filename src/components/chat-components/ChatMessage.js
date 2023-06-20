@@ -1,50 +1,40 @@
-import React from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 
 import demo_user from "../../assets/images/users/no-avatar.jpg";
+import { ChatContext } from "../../context/ChatContext";
 
-const ChatMessage = () => {
+const ChatMessage = ({ message }) => {
   const currentUser = useSelector((state) => state.user.currentUser);
+  const { data } = useContext(ChatContext);
+
+  const ref = useRef();
+
+  useEffect(() => {
+    ref.current?.scrollIntoView({ behavior: "smooth" });
+  }, [message]);
 
   return (
-    <>
-      <div className="message">
-        <div className="messageInfo">
-          <img src={demo_user} alt="no-avatar.jpg" />
-          <span>1 hour ago</span>
-        </div>
-        <div className="messageContent">
-          <p>Good Morning, How are you?</p>
-        </div>
+    <div
+      ref={ref}
+      className={`message ${message.senderId === currentUser.idst && "owner"}`}
+    >
+      <div className="messageInfo">
+        <img
+          src={
+            message.senderId === currentUser.idst
+              ? currentUser.avatar
+              : data.user.photoURL
+          }
+          alt={demo_user}
+        />
+        <span>just now</span>
       </div>
-      <div className="message owner">
-        <div className="messageInfo">
-          <img src={currentUser?.avatar || demo_user} alt={demo_user} />
-          <span>1 hour ago</span>
-        </div>
-        <div className="messageContent">
-          <p>I am Good, Thanks. And you?</p>
-        </div>
+      <div className="messageContent">
+        <p>{message.text}</p>
+        {message.img && <img src={message.img} alt="" />}
       </div>
-      <div className="message">
-        <div className="messageInfo">
-          <img src={demo_user} alt="no-avatar.jpg" />
-          <span>5 min ago</span>
-        </div>
-        <div className="messageContent">
-          <p>Good, too. Thanks.</p>
-        </div>
-      </div>
-      <div className="message owner">
-        <div className="messageInfo">
-          <img src={currentUser?.avatar || demo_user} alt={demo_user} />
-          <span>just now</span>
-        </div>
-        <div className="messageContent">
-          <p>Hi, How are you?</p>
-        </div>
-      </div>
-    </>
+    </div>
   );
 };
 
