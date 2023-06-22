@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   setDoc,
   doc,
@@ -11,6 +11,7 @@ import demo_user from "../../assets/images/users/no-avatar.jpg";
 import { db } from "../../utils/firebase";
 import { useSelector } from "react-redux";
 import { axiosInstance } from "../../utils/axiosInstance";
+import { ChatContext } from "../../context/ChatContext";
 
 const ChatSearch = () => {
   const [username, setUsername] = useState("");
@@ -18,6 +19,7 @@ const ChatSearch = () => {
   const [err, setErr] = useState(false);
 
   const currentUser = useSelector((state) => state.user.currentUser);
+  const { dispatch } = useContext(ChatContext);
 
   const handleSearch = async () => {
     try {
@@ -46,6 +48,16 @@ const ChatSearch = () => {
         ? currentUser.idst + user.idst
         : user.idst + currentUser.idst;
     try {
+      const rescUChats = await getDoc(doc(db, "userChats", currentUser.idst));
+      if (!rescUChats.exists()) {
+        await setDoc(doc(db, "userChats", currentUser.idst), {});
+      }
+
+      const resUChats = await getDoc(doc(db, "userChats", user.idst));
+      if (!resUChats.exists()) {
+        await setDoc(doc(db, "userChats", user.idst), {});
+      }
+
       const res = await getDoc(doc(db, "chats", combinedId));
 
       if (!res.exists()) {
@@ -72,6 +84,8 @@ const ChatSearch = () => {
         });
       }
     } catch (err) {}
+
+    dispatch({ type: "CHANGE_USER", payload: user });
 
     setUser(null);
     setUsername("");

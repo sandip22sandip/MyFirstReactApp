@@ -1,19 +1,21 @@
-import React from "react";
-import Cam from "../../assets/images/chat-imgs/cam.png";
-import Add from "../../assets/images/chat-imgs/add.png";
-import More from "../../assets/images/chat-imgs/more.png";
+import React, { useContext } from "react";
+import Home from "../../assets/images/chat-imgs/Home.png";
 import ChatMessages from "./ChatMessages";
 import ChatInput from "./ChatInput";
+import { ChatContext } from "../../context/ChatContext";
+import { Link } from "react-router-dom";
 
 const Chat = () => {
+  const { data } = useContext(ChatContext);
+
   return (
     <div className="chatside">
       <div className="chatInfo">
-        <span>Xen</span>
+        <span>{data.user?.displayName || "Start Chatting .. "}</span>
         <div className="chatIcons">
-          <img src={Cam} alt="" />
-          <img src={Add} alt="" />
-          <img src={More} alt="" />
+          <Link to="/main">
+            <img src={Home} alt="" />
+          </Link>
         </div>
       </div>
       <ChatMessages />

@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import Img from "../../assets/images/chat-imgs/img.png";
-import Attach from "../../assets/images/chat-imgs/attach.png";
 import { ChatContext } from "../../context/ChatContext";
 import {
   arrayUnion,
@@ -22,7 +21,7 @@ const ChatInput = () => {
 
   const { data } = useContext(ChatContext);
 
-  // console.log(data.chatId)
+  // console.log(data.chatId);
 
   const handleSend = async () => {
     if (img) {
@@ -76,6 +75,7 @@ const ChatInput = () => {
     setText("");
     setImg(null);
   };
+
   return (
     <div className="chat">
       <input
@@ -85,7 +85,6 @@ const ChatInput = () => {
         value={text}
       />
       <div className="send">
-        <img src={Attach} alt="" />
         <input
           type="file"
           style={{ display: "none" }}
@@ -95,7 +94,11 @@ const ChatInput = () => {
         <label htmlFor="file">
           <img src={Img} alt="" />
         </label>
-        <button onClick={handleSend}>Send</button>
+        {data.chatId !== "null" ? (
+          <button onClick={handleSend}>Send</button>
+        ) : (
+          <button disabled>Send</button>
+        )}
       </div>
     </div>
   );
