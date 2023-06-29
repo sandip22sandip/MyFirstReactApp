@@ -8,6 +8,7 @@ import {
 } from "firebase/firestore";
 
 import demo_user from "../../assets/images/users/no-avatar.jpg";
+import add from "../../assets/images/chat-imgs/add.png";
 import { db } from "../../utils/firebase";
 import { useSelector } from "react-redux";
 import { axiosInstance } from "../../utils/axiosInstance";
@@ -30,9 +31,16 @@ const ChatSearch = () => {
           name: username,
         },
       });
-      // console.log(res.data.details);
-      setUser(res.data.details);
+      // console.log(res.data.error);
+      if (res.data.details) {
+        setErr(false);
+        setUser(res.data.details);
+      } else {
+        setErr(true);
+        setUser("");
+      }
     } catch (err) {
+      setUser("");
       setErr(true);
     }
   };
@@ -102,8 +110,19 @@ const ChatSearch = () => {
           onChange={(e) => setUsername(e.target.value)}
           value={username}
         />
+        <img
+          src={add}
+          alt=""
+          className="pull-right"
+          style={{ height: "25px", width: "25px", cursor: "pointer" }}
+          onClick={handleSearch}
+        />
       </div>
-      {err && <span>User not found!</span>}
+      {err && (
+        <span style={{ color: "white", marginLeft: "12px" }}>
+          Oops! User does not exists!
+        </span>
+      )}
       {user && (
         <div className="userChat" onClick={handleSelect}>
           <img src={user?.avatar || demo_user} alt={demo_user} />
