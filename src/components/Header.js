@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import demo_user from "../assets/images/users/no-avatar.jpg";
 import company_logo from "../assets/images/company-logo-alt.png";
+import ChatGPT from "../assets/images/ChatGPT.png";
 import { useSelector } from "react-redux";
 import { logout } from "../redux/userSlice";
 import { useDispatch } from "react-redux";
@@ -80,6 +81,16 @@ function Header() {
                       <i className="fa fa-question" />
                     </div>
                   </a>
+                </li>
+                {/********** CHATGPT **********/}
+                <li className="hidden-xs">
+                  <Link
+                    to="/chatgpt"
+                    className="logo"
+                    style={{ marginRight: "10px" }}
+                  >
+                    <img src={ChatGPT} alt="ChatGPT" />
+                  </Link>
                 </li>
                 {/********** PROFILE ICON **********/}
                 <li className="dropdown hidden-xs">

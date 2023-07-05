@@ -34,6 +34,7 @@ function App() {
   const MyTeam = React.lazy(() => import("./pages/MyTeam"));
   const Profile = React.lazy(() => import("./pages/Profile"));
   const ChatWindow = React.lazy(() => import("./pages/ChatWindow"));
+  const ChatGPT = React.lazy(() => import("./pages/ChatGPT"));
 
   const queryClient = new QueryClient();
 
@@ -195,21 +196,27 @@ function App() {
             </Suspense>
           ),
         },
+        {
+          path: "/chatgpt",
+          element: (
+            <Suspense fallback={<div>Loading...</div>}>
+              <ChatGPT />
+            </Suspense>
+          ),
+        },
+        {
+          path: "/chatwindow",
+          element: (
+            <Suspense fallback={<div>Loading...</div>}>
+              <ChatWindow />
+            </Suspense>
+          ),
+        },
       ],
     },
     {
       path: "/login",
       element: <Login />,
-    },
-    {
-      path: "/chatwindow",
-      element: (
-        <ProtectedRoute>
-          <Suspense fallback={<div>Loading...</div>}>
-            <ChatWindow />
-          </Suspense>
-        </ProtectedRoute>
-      ),
     },
     { path: "*", element: <NotFoundPage /> },
   ]);
