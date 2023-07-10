@@ -124,6 +124,7 @@ export default function Login() {
                     name="password"
                     required
                     placeholder="Password"
+                    autoComplete="on"
                     {...register("password")}
                   />
                   {errors.password?.message && (

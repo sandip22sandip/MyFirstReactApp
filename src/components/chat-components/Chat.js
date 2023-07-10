@@ -3,19 +3,20 @@ import Home from "../../assets/images/chat-imgs/Home.png";
 import ChatMessages from "./ChatMessages";
 import ChatInput from "./ChatInput";
 import { ChatContext } from "../../context/ChatContext";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Chat = () => {
   const { data } = useContext(ChatContext);
+  const navigate = useNavigate();
 
   return (
     <div className="chatside">
       <div className="chatInfo">
         <span>{data.user?.displayName || "Start Chatting .. "}</span>
         <div className="chatIcons">
-          <Link to="/main">
+          <span onClick={() => navigate(-1)}>
             <img src={Home} alt="" />
-          </Link>
+          </span>
         </div>
       </div>
       <ChatMessages />

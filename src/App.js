@@ -35,6 +35,7 @@ function App() {
   const Profile = React.lazy(() => import("./pages/Profile"));
   const ChatWindow = React.lazy(() => import("./pages/ChatWindow"));
   const ChatGPT = React.lazy(() => import("./pages/ChatGPT"));
+  const AddToCart = React.lazy(() => import("./pages/AddToCart"));
 
   const queryClient = new QueryClient();
 
@@ -193,6 +194,14 @@ function App() {
           element: (
             <Suspense fallback={<div>Loading...</div>}>
               <Rewards />
+            </Suspense>
+          ),
+        },
+        {
+          path: "/addtocart",
+          element: (
+            <Suspense fallback={<div>Loading...</div>}>
+              <AddToCart />
             </Suspense>
           ),
         },

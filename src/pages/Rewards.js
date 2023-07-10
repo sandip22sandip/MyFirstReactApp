@@ -3,9 +3,50 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import token from "../assets/images/icons/token.png";
-import reward1 from "../assets/images/rewards/reward1.png";
+import noimage from "../assets/images/course-imgs/noimage.png";
+import { axiosInstance } from "../utils/axiosInstance";
+import { useQuery } from "@tanstack/react-query";
+import Spinner from "../utils/Spinner";
+import { useDispatch, useSelector } from "react-redux";
+import { addProduct } from "../redux/cartSlice";
 
 function Rewards() {
+  const currentUser = useSelector((state) => state.user.currentUser);
+  const cart = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+
+  const { isLoading, error, data } = useQuery(["rewards"], () =>
+    axiosInstance
+      .get("/rest.php", {
+        params: {
+          q: "/restAPI/reward/getRewards/",
+          auth: sessionStorage.getItem("AuthToken"),
+        },
+      })
+      .then((res) => {
+        return res.data.details;
+      })
+  );
+
+  if (isLoading) {
+    return (
+      <div>
+        <Spinner />
+      </div>
+    );
+  }
+
+  if (error) {
+    return <div>Error occurred while fetching data</div>;
+  }
+
+  const handleClick = (reward) => {
+    // console.log(reward);
+    dispatch(addProduct({ ...reward, quantity: 1 }));
+  };
+
+  // console.log(cart.products.length);
+
   return (
     <div className="content-page">
       <div className="content">
@@ -14,230 +55,88 @@ function Rewards() {
             {/*=========================== rewards ===========================*/}
             <div className="col-sm-9">
               <div className="row">
-                <div className="col-sm-6 col-md-4 col-lg-3">
-                  <div className="panel panel-default card">
-                    <div className="card-img-thumb">
-                      <img src={reward1} alt="reward1.png" />
-                    </div>
-                    <div className="panel-body hover-desc">
-                      <div className="small m-b-5">
-                        <a
-                          href="/#"
-                          data-toggle="modal"
-                          data-target
-                          className="pull-right"
-                        >
-                          <i className="fa fa-info text-inverse" />
-                        </a>
-                        <span title="Tokens">
-                          <img
-                            src={token}
-                            alt="token.png"
-                            className="img-xxs"
-                          />{" "}
-                          1 000
-                        </span>
+                {data.length === 0 ? (
+                  <p>No data found.</p>
+                ) : (
+                  data.map((reward) => (
+                    <div className="col-sm-6 col-md-4 col-lg-3" key={reward.id}>
+                      <div className="panel panel-default card">
+                        <div className="card-img-thumb">
+                          <img src={noimage} alt="noimage.png" />
+                        </div>
+                        <div className="panel-body hover-desc">
+                          <div className="small m-b-5">
+                            <a
+                              href="/#"
+                              data-toggle="modal"
+                              data-target={`#prInfo${reward.id}`}
+                              className="pull-right"
+                            >
+                              <i className="fa fa-info text-inverse" />
+                            </a>
+                            <span title="Tokens">
+                              <img
+                                src={token}
+                                alt="token.png"
+                                className="img-xxs"
+                              />
+                              {reward?.pro_coins}
+                            </span>
+                          </div>
+                          <h3 className="panelTitle">{reward?.pro_name}</h3>
+                          <div className="col-sm-12">
+                            <button
+                              type="button"
+                              className="btn-block btn btn-primary addToCart"
+                              style={{
+                                opacity: "1",
+                                transition: "all 0.3s ease-out",
+                              }}
+                              onClick={() => handleClick(reward)}
+                            >
+                              Redeem reward
+                            </button>
+                          </div>
+                        </div>
                       </div>
-                      <h3 className="panelTitle">Have a day off work</h3>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-sm-6 col-md-4 col-lg-3">
-                  <div className="panel panel-default card">
-                    <div className="card-img-thumb">
-                      <img src={reward1} alt="reward1.png" />
-                    </div>
-                    <div className="panel-body hover-desc">
-                      <div className="small m-b-5">
-                        <a
-                          href="/#"
-                          data-toggle="modal"
-                          data-target
-                          className="pull-right"
-                        >
-                          <i className="fa fa-info text-inverse" />
-                        </a>
-                        <span title="Tokens">
-                          <img
-                            src={token}
-                            alt="token.png"
-                            className="img-xxs"
-                          />{" "}
-                          3 000
-                        </span>
+                      <div className="modal fade" id={`prInfo${reward.id}`}>
+                        <div className="modal-dialog">
+                          <div className="modal-content p-0 b-0">
+                            <div className="panel panel-color panel-info b-0">
+                              <div className="panel-heading">
+                                <button
+                                  type="button"
+                                  className="close"
+                                  data-dismiss="modal"
+                                  aria-hidden="true"
+                                >
+                                  <i className="fa fa-close" />
+                                </button>
+                                <h3 className="panel-title">
+                                  {reward?.pro_name}
+                                </h3>
+                              </div>
+                              <div className="panel-body">
+                                <p>{reward?.pro_desc}</p>
+                              </div>
+                              <div className="panel-footer">
+                                <div>
+                                  <a
+                                    href="/#"
+                                    className="btn btn-default waves-light waves-effect"
+                                    data-dismiss="modal"
+                                  >
+                                    Cancel
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                      <h3 className="panelTitle">Lunch with the CEO</h3>
                     </div>
-                  </div>
-                </div>
-                <div className="col-sm-6 col-md-4 col-lg-3">
-                  <div className="panel panel-default card">
-                    <div className="card-img-thumb">
-                      <img src={reward1} alt="reward1.png" />
-                    </div>
-                    <div className="panel-body hover-desc">
-                      <div className="small m-b-5">
-                        <a
-                          href="/#"
-                          data-toggle="modal"
-                          data-target
-                          className="pull-right"
-                        >
-                          <i className="fa fa-info text-inverse" />
-                        </a>
-                        <span title="Tokens">
-                          <img
-                            src={token}
-                            alt="token.png"
-                            className="img-xxs"
-                          />{" "}
-                          10 000
-                        </span>
-                      </div>
-                      <h3 className="panelTitle">50" LED TV</h3>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-sm-6 col-md-4 col-lg-3">
-                  <div className="panel panel-default card">
-                    <div className="card-img-thumb">
-                      <img src={reward1} alt="reward1.png" />
-                    </div>
-                    <div className="panel-body hover-desc">
-                      <div className="small m-b-5">
-                        <a
-                          href="/#"
-                          data-toggle="modal"
-                          data-target
-                          className="pull-right"
-                        >
-                          <i className="fa fa-info text-inverse" />
-                        </a>
-                        <span title="Tokens">
-                          <img
-                            src={token}
-                            alt="token.png"
-                            className="img-xxs"
-                          />{" "}
-                          3 000
-                        </span>
-                      </div>
-                      <h3 className="panelTitle">Dinner for two</h3>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-sm-6 col-md-4 col-lg-3">
-                  <div className="panel panel-default card">
-                    <div className="card-img-thumb">
-                      <img src={reward1} alt="reward1.png" />
-                    </div>
-                    <div className="panel-body hover-desc">
-                      <div className="small m-b-5">
-                        <a
-                          href="/#"
-                          data-toggle="modal"
-                          data-target
-                          className="pull-right"
-                        >
-                          <i className="fa fa-info text-inverse" />
-                        </a>
-                        <span title="Tokens">
-                          <img
-                            src={token}
-                            alt="token.png"
-                            className="img-xxs"
-                          />{" "}
-                          3 000
-                        </span>
-                      </div>
-                      <h3 className="panelTitle">Woolworths Voucher</h3>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-sm-6 col-md-4 col-lg-3">
-                  <div className="panel panel-default card">
-                    <div className="card-img-thumb">
-                      <img src={reward1} alt="reward1.png" />
-                    </div>
-                    <div className="panel-body hover-desc">
-                      <div className="small m-b-5">
-                        <a
-                          href="/#"
-                          data-toggle="modal"
-                          data-target
-                          className="pull-right"
-                        >
-                          <i className="fa fa-info text-inverse" />
-                        </a>
-                        <span title="Tokens">
-                          <img
-                            src={token}
-                            alt="token.png"
-                            className="img-xxs"
-                          />{" "}
-                          2 500
-                        </span>
-                      </div>
-                      <h3 className="panelTitle">Enjoy a spa day</h3>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-sm-6 col-md-4 col-lg-3">
-                  <div className="panel panel-default card">
-                    <div className="card-img-thumb">
-                      <img src={reward1} alt="reward1.png" />
-                    </div>
-                    <div className="panel-body hover-desc">
-                      <div className="small m-b-5">
-                        <a
-                          href="/#"
-                          data-toggle="modal"
-                          data-target
-                          className="pull-right"
-                        >
-                          <i className="fa fa-info text-inverse" />
-                        </a>
-                        <span title="Tokens">
-                          <img
-                            src={token}
-                            alt="token.png"
-                            className="img-xxs"
-                          />{" "}
-                          2 500
-                        </span>
-                      </div>
-                      <h3 className="panelTitle">A perfume of your choice</h3>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-sm-6 col-md-4 col-lg-3">
-                  <div className="panel panel-default card">
-                    <div className="card-img-thumb">
-                      <img src={reward1} alt="reward1.png" />
-                    </div>
-                    <div className="panel-body hover-desc">
-                      <div className="small m-b-5">
-                        <a
-                          href="/#"
-                          data-toggle="modal"
-                          data-target
-                          className="pull-right"
-                        >
-                          <i className="fa fa-info text-inverse" />
-                        </a>
-                        <span title="Tokens">
-                          <img
-                            src={token}
-                            alt="token.png"
-                            className="img-xxs"
-                          />{" "}
-                          2 500
-                        </span>
-                      </div>
-                      <h3 className="panelTitle">Samsung Cellphone</h3>
-                    </div>
-                  </div>
-                </div>
+                  ))
+                )}
               </div>
             </div>
             {/*=========================== right col ===========================*/}
@@ -246,12 +145,30 @@ function Rewards() {
               <div className="panel panel-default">
                 <div className="panel-heading bg-secondary text-center">
                   <p className="text-white m-0">
-                    You have <strong>100</strong> tokens available
+                    You have <strong>{currentUser?.userCoins}</strong> tokens
+                    available
                   </p>
                 </div>
                 <div className="panel-body">
                   <h5 className="m-t-0">Your cart</h5>
-                  <p>Your cart is empty.</p>
+                  {cart.products.length > 0 ? (
+                    <div>
+                      <p>
+                        You have <strong>{cart.products.length}</strong> item in
+                        your cart.
+                      </p>
+                      <p>
+                        <Link
+                          to="/addtocart"
+                          className="btn btn-default btn-sm no-shadow"
+                        >
+                          View Cart
+                        </Link>
+                      </p>
+                    </div>
+                  ) : (
+                    <p>Your cart is empty.</p>
+                  )}
                 </div>
               </div>
               {/*========== categories ==========*/}
@@ -291,9 +208,9 @@ function Rewards() {
                     Send us your suggestion of prizes and you could earn points
                     and have your suggested prize available in store.
                   </p>
-                  <button type="button" className="btn btn-primary m-t-15">
+                  <Link to="/chatwindow" className="btn btn-primary m-t-15">
                     I've got a suggestion
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>
