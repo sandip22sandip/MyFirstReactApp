@@ -18,6 +18,8 @@ import Modals from "./components/Modals";
 import Login from "./pages/Login";
 import NotFoundPage from "./utils/NotFoundPage";
 import { useSelector } from "react-redux";
+import Pay from "./pages/Pay/Pay";
+import PaymentSuccess from "./pages/Pay/PaymentSuccess";
 
 function App() {
   const Main = React.lazy(() => import("./pages/Main"));
@@ -220,6 +222,14 @@ function App() {
               <ChatWindow />
             </Suspense>
           ),
+        },
+        {
+          path: "/pay",
+          element: <Pay />,
+        },
+        {
+          path: "/success",
+          element: <PaymentSuccess />,
         },
       ],
     },

@@ -3,6 +3,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function Footer() {
+  const d = new Date();
+  let year = d.getFullYear();
   return (
     <>
       <div className="bottombar visible-xs">
@@ -70,7 +72,7 @@ function Footer() {
         </div>
       </div>
       <footer className="footer text-right">
-        2018 © Oceana LMS. Powered by
+        {year} © Oceana LMS. Powered by
         <Link
           to="http://www.synrgise.com"
           target="_new"

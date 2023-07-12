@@ -41,15 +41,17 @@ function AddToCart() {
             >
               Continue Shopping
             </Link>
-            <form method="POST">
+            <form>
               {products.length !== 0 && totalPrice() !== 0 && (
-                <button
-                  type="submit"
-                  id="btnPlaceOrder"
-                  className="btn btn-primary btn-rounded btn-sm pull-right m-b-15 m-r-5"
-                >
-                  Checkout
-                </button>
+                <Link to="/pay">
+                  <button
+                    type="button"
+                    id="btnPlaceOrder"
+                    className="btn btn-primary btn-rounded btn-sm pull-right m-b-15 m-r-5"
+                  >
+                    Checkout
+                  </button>
+                </Link>
               )}
             </form>
             <table className="tbl-cart" cellSpacing={1} cellPadding={10}>
