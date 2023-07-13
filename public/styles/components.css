@@ -44,24 +44,24 @@ File: Components
   border: 1px solid #d0d0d0 !important; }
 
 .btn-primary, .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .btn-primary.focus, .btn-primary:active, .btn-primary:focus, .btn-primary:hover, .open > .dropdown-toggle.btn-primary {
-  background-color: #0067a3 !important;
-  border: 1px solid #0067a3 !important; }
+  background-color: #cc3333 !important;
+  border: 1px solid #cc3333 !important; }
 
 .btn-secondary, .btn-secondary:hover, .btn-secondary:focus, .btn-secondary:active, .btn-secondary.active, .btn-secondary.focus, .btn-secondary:active, .btn-secondary:focus, .btn-secondary:hover, .open > .dropdown-toggle.btn-secondary {
-  background-color: #bd9633 !important;
-  border: 1px solid #bd9633 !important; }
+  background-color: #002a54 !important;
+  border: 1px solid #002a54 !important; }
 
 .btn-success, .btn-success:hover, .btn-success:focus, .btn-success:active, .btn-success.active, .btn-success.focus, .btn-success:active, .btn-success:focus, .btn-success:hover, .open > .dropdown-toggle.btn-success {
-  background-color: #4ea499 !important;
-  border: 1px solid #4ea499 !important; }
+  background-color: #35ae37 !important;
+  border: 1px solid #35ae37 !important; }
 
 .btn-info, .btn-info:hover, .btn-info:focus, .btn-info:active, .btn-info.active, .btn-info.focus, .btn-info:active, .btn-info:focus, .btn-info:hover, .open > .dropdown-toggle.btn-info {
-  background-color: #048bda !important;
-  border: 1px solid #048bda !important; }
+  background-color: #0844bc !important;
+  border: 1px solid #0844bc !important; }
 
 .btn-warning, .btn-warning:hover, .btn-warning:focus, .btn-warning:active, .btn-warning.active, .btn-warning.focus, .btn-warning:active, .btn-warning:focus, .btn-warning:hover, .open > .dropdown-toggle.btn-warning {
-  background-color: #cca543 !important;
-  border: 1px solid #cca543 !important;
+  background-color: #fbc02d !important;
+  border: 1px solid #fbc02d !important;
   color: #fff !important; }
 
 .btn-danger, .btn-danger:active, .btn-danger:focus, .btn-danger:hover, .btn-danger.active, .btn-danger.focus, .btn-danger:active, .btn-danger:focus, .btn-danger:hover, .open > .dropdown-toggle.btn-danger {
@@ -91,7 +91,7 @@ File: Components
   color: #616a71 !important; }
 
 .btn-border.btn-primary {
-  color: #0067a3 !important; }
+  color: #cc3333 !important; }
 
 .btn-border.btn-success {
   color: #4ea499 !important; }
@@ -199,8 +199,8 @@ File: Components
   color: #fff; }
 
 .panel-primary > .panel-heading {
-  background-color: #0067a3;
-  border-color: #048bda; }
+  background-color: #cc3333;
+  border-color: #cc3333; }
   .panel-primary > .panel-heading .panel-title {
     color: #fff; }
 
@@ -210,7 +210,7 @@ File: Components
     color: #fff; }
 
 .panel-info > .panel-heading {
-  background-color: #048bda; }
+  background-color: #cc3333; }
   .panel-info > .panel-heading .panel-title {
     color: #fff; }
 
@@ -247,8 +247,8 @@ File: Components
   padding: 15px 20px 20px 20px; }
 
 .panel-border.panel-primary .panel-heading {
-  border-color: #0067a3 !important;
-  color: #0067a3 !important; }
+  border-color: #cc3333 !important;
+  color: #cc3333 !important; }
 
 .panel-border.panel-success .panel-heading {
   border-color: #4ea499 !important;
@@ -290,7 +290,7 @@ File: Components
   border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important; }
 
 .panel-fill.panel-primary {
-  background-color: #0067a3; }
+  background-color: #cc3333; }
 
 .panel-fill.panel-success {
   background-color: #58c386; }
@@ -501,8 +501,8 @@ File: Components
   height: 17px; }
 
 .checkbox-primary input[type="checkbox"]:checked + label::before {
-  background-color: #0067a3;
-  border-color: #0067a3; }
+  background-color: #cc3333;
+  border-color: #cc3333; }
 .checkbox-primary input[type="checkbox"]:checked + label::after {
   color: #fff; }
 
@@ -595,11 +595,11 @@ File: Components
   height: 17px; }
 
 .radio-primary input[type="radio"] + label::after {
-  background-color: #0067a3; }
+  background-color: #cc3333; }
 .radio-primary input[type="radio"]:checked + label::before {
-  border-color: #0067a3; }
+  border-color: #cc3333; }
 .radio-primary input[type="radio"]:checked + label::after {
-  background-color: #0067a3; }
+  background-color: #cc3333; }
 
 .radio-danger input[type="radio"] + label::after {
   background-color: #cc3333; }
@@ -665,7 +665,7 @@ File: Components
     line-height: 20px; }
 
 .progress-bar-primary {
-  background-color: #0067a3; }
+  background-color: #cc3333; }
 
 .progress-bar-secondary {
   background-color: #bd9633; }
@@ -707,10 +707,10 @@ th {
   font-size: 15px; }
 
 table.focus-on tbody tr.focused th {
-  background-color: #0067a3;
+  background-color: #cc3333;
   color: #fff; }
 table.focus-on tbody tr.focused td {
-  background-color: #0067a3;
+  background-color: #cc3333;
   color: #fff; }
 
 .table-rep-plugin tbody th {
@@ -732,7 +732,7 @@ div#datatable-buttons_info {
   float: left; }
 
 table.dataTable th.focus, table.dataTable td.focus {
-  outline: 3px solid #0067a3 !important;
+  outline: 3px solid #cc3333 !important;
   outline-offset: -1px; }
 
 .fixedHeader-floating {
@@ -783,9 +783,9 @@ div.dataTables_info {
 .ms-container .ms-list.ms-focus {
   box-shadow: none; }
 .ms-container .ms-selectable li.ms-hover {
-  background-color: #0067a3; }
+  background-color: #cc3333; }
 .ms-container .ms-selection li.ms-hover {
-  background-color: #0067a3; }
+  background-color: #cc3333; }
 
 .spinner-buttons.btn-group-vertical .btn {
   background-color: #999999;
@@ -846,7 +846,7 @@ div.dataTables_info {
   background-color: transparent;
   border-color: transparent;
   border-radius: 4px;
-  color: #0067a3;
+  color: #cc3333;
   text-decoration: none; }
 
 .editor-horizontal .popover-content {
@@ -889,14 +889,14 @@ div.dataTables_info {
     color: #616a71;
     cursor: default; }
 .wizard > .steps .current a {
-  background: #0067a3; }
+  background: #cc3333; }
   .wizard > .steps .current a:hover {
-    background: #0067a3; }
+    background: #cc3333; }
     .wizard > .steps .current a:hover .number {
       background: transparent;
       color: #fff; }
   .wizard > .steps .current a:active {
-    background: #0067a3; }
+    background: #cc3333; }
     .wizard > .steps .current a:active .number {
       background: transparent;
       color: #fff; }
@@ -916,15 +916,15 @@ div.dataTables_info {
 .wizard > .actions {
   margin-bottom: 30px; }
   .wizard > .actions a {
-    background: #0067a3;
+    background: #cc3333;
     border-radius: 2px;
     color: #fff; }
     .wizard > .actions a:hover {
-      background: #0067a3;
+      background: #cc3333;
       border-radius: 2px;
       color: #fff; }
     .wizard > .actions a:active {
-      background: #0067a3;
+      background: #cc3333;
       border-radius: 2px;
       color: #fff; }
   .wizard > .actions .disabled a {

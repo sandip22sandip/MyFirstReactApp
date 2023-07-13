@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { resetCart } from "../../redux/cartSlice";
 
@@ -10,8 +10,10 @@ const Success = () => {
   const payment_intent = params.get("payment_intent");
   console.log(payment_intent);
 
+  const userId = useSelector((state) => state.user.currentUser.idst);
+
   const dispatch = useDispatch();
-  dispatch(resetCart());
+  dispatch(resetCart({ userId }));
 
   setTimeout(() => {
     navigate("/rewards");

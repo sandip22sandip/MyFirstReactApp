@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 
 import noimage from "../assets/images/course-imgs/noimage.png";
 import { useDispatch, useSelector } from "react-redux";
-import { removeProduct, resetCart } from "../redux/cartSlice";
+import { removeProduct, resetCart} from "../redux/cartSlice";
 
 function AddToCart() {
-  const products = useSelector((state) => state.cart.products);
+  const userId = useSelector((state) => state.user.currentUser.idst);
+  const products = useSelector((state) => (state.cart[userId] ? state.cart[userId] : []));
   const dispatch = useDispatch();
 
   const totalPrice = () => {
@@ -15,6 +16,10 @@ function AddToCart() {
       total += item.quantity * Number(item.pro_coins);
     });
     return total;
+  };
+
+  const handleRemove = (productId) => {
+    dispatch(removeProduct({ userId, productId }));
   };
 
   return (
@@ -31,7 +36,7 @@ function AddToCart() {
           <div id="shopping-cart">
             <button
               className="btn btn-default btn-rounded btn-sm pull-right m-b-15"
-              onClick={() => dispatch(resetCart())}
+              onClick={() => dispatch(resetCart({ userId }))}
             >
               Empty Cart
             </button>
@@ -87,7 +92,7 @@ function AddToCart() {
                     <td style={{ textAlign: "center" }}>
                       <button
                         className="btnRemoveAction"
-                        onClick={() => dispatch(removeProduct(product.id))}
+                        onClick={() => handleRemove(product.id)}
                       >
                         <i
                           className="text-danger fa fa-trash"

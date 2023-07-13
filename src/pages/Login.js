@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
 
-import company_logo from "../assets/images/Oceana_Logo.jpg";
+import company_logo from "../assets/images/company_logo.svg";
 import googleIcon from "../assets/images/icons/google.png";
 
 import { useForm } from "react-hook-form";
@@ -95,7 +95,7 @@ export default function Login() {
       <div className="wrapper-page">
         <div className="panel panel-default">
           <div className="panel-body">
-            <div className="login logo text-center">
+            <div className="login-logo text-center">
               <img src={company_logo} alt="Company Logo" />
             </div>
             <form className="form-horizontal m-t-20">

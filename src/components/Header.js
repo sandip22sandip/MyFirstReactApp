@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import demo_user from "../assets/images/users/no-avatar.jpg";
-import company_logo from "../assets/images/company-logo-alt.png";
+import company_logo from "../assets/images/company-logo.png";
 import ChatGPT from "../assets/images/ChatGPT.png";
 import { useSelector } from "react-redux";
 import { logout } from "../redux/userSlice";

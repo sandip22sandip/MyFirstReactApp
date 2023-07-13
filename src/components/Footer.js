@@ -72,7 +72,7 @@ function Footer() {
         </div>
       </div>
       <footer className="footer text-right">
-        {year} © Oceana LMS. Powered by
+        {year} © SynrgiseLearn LMS. Powered by
         <Link
           to="http://www.synrgise.com"
           target="_new"

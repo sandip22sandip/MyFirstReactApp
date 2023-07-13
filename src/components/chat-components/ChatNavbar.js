@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import demo_user from "../../assets/images/users/no-avatar.jpg";
-import company_logo from "../../assets/images/company-logo-alt.png";
+import company_logo from "../../assets/images/company-logo.png";
 import { useSelector } from "react-redux";
 
 const ChatNavbar = () => {

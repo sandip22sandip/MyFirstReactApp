@@ -142,8 +142,8 @@ File: Pages
   line-height: 22px; }
 
 button.confirm {
-  background-color: #0067a3 !important;
-  border-color: #0067a3 !important;
+  background-color: #cc3333 !important;
+  border-color: #cc3333 !important;
   box-shadow: none !important; }
 
 /* ==============
@@ -283,7 +283,7 @@ button.confirm {
   color: #fff;
   font-size: 16px;
   line-height: 40px;
-  background: #0067a3;
+  background: #cc3333;
   border-radius: 4px;
   padding: 10px 20px; }
 
@@ -298,13 +298,13 @@ button.confirm {
   bottom: -15px;
   border-left: 16px solid transparent;
   border-right: 16px solid transparent;
-  border-top: 16px solid #0067a3; }
+  border-top: 16px solid #cc3333; }
 
 .gmaps-overlay_arrow.below {
   top: -15px;
   border-left: 16px solid transparent;
   border-right: 16px solid transparent;
-  border-bottom: 16px solid #0067a3; }
+  border-bottom: 16px solid #cc3333; }
 
 /* ==============
   Email
@@ -398,7 +398,7 @@ button.confirm {
   background: #cc3333; }
 
 .cd-timeline-img.cd-primary {
-  background: #0067a3; }
+  background: #cc3333; }
 
 .cd-timeline-img.cd-warning {
   background: #cca543; }
@@ -586,7 +586,7 @@ button.confirm {
   font-family: 'Nunito', sans-serif; }
 
 .lj-countdown {
-  color: #0067a3;
+  color: #cc3333;
   margin-top: 40px;
   text-align: center; }
   .lj-countdown div {
@@ -623,10 +623,10 @@ button.confirm {
   padding: 5px 10px;
   transition: all 0.3s ease-out; }
   .portfolioFilter a:hover {
-    background-color: #0067a3;
+    background-color: #cc3333;
     color: #fff; }
 .portfolioFilter a.current {
-  background-color: #0067a3;
+  background-color: #cc3333;
   color: #fff; }
 
 .thumb {

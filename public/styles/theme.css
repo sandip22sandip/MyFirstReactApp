@@ -104,7 +104,7 @@ select + i.fa {
   font-size: 13px; }
 
 tr.userSelected {
-  background-color: #0067a3;
+  background-color: #cc3333;
   color: #fff; }
 
 .content {
@@ -278,7 +278,7 @@ img {
 
 /*================================== PERFROMANCE ==================================*/
 .accordion-header {
-  background: #0067a3;
+  background: #cc3333;
   padding: 10px;
   margin: 0 0 10px 0;
   color: #fff; }
@@ -297,7 +297,7 @@ img {
   border: 1px solid #ddd; }
 
 .simple#accordion > .panel:hover {
-  border: 1px solid #0067a3 !important; }
+  border: 1px solid #cc3333 !important; }
 
 .simple .panel {
   border: 1px solid #ddd;
@@ -550,7 +550,7 @@ i.fa.lesson-icons {
   opacity: 1; }
 
 .item.active .bannerOverlay {
-  background: linear-gradient(to right, #0067a3 0%, rgba(0, 0, 0, 0) 60%);
+  background: linear-gradient(to right, #cc3333 0%, rgba(0, 0, 0, 0) 60%);
   width: 100%;
   height: 100%;
   display: block;
@@ -656,7 +656,7 @@ i.fa.lesson-icons {
 
 /*================================== PROFILE ==================================*/
 .half-bg {
-  background: linear-gradient(#a8b6bf 50%, white 50%); }
+  background: linear-gradient(#cc3333 50%, white 50%); }
 
 #ProfileImg img {
   border: 5px solid #fff; }
@@ -807,7 +807,7 @@ a.dropdown-toggle {
   top: 0;
   left: 0;
   height: 1px;
-  background: #0067a3; }
+  background: #cc3333; }
 
 .f1-step {
   position: relative;
@@ -832,15 +832,15 @@ a.dropdown-toggle {
 
 .f1-step.activated .f1-step-icon {
   background: #fff;
-  border: 1px solid #0067a3;
-  color: #0067a3;
+  border: 1px solid #cc3333;
+  color: #cc3333;
   line-height: 38px; }
 
 .f1-step.active .f1-step-icon {
   width: 48px;
   height: 48px;
   margin-top: 0;
-  background: #0067a3;
+  background: #cc3333;
   font-size: 22px;
   line-height: 48px; }
 
@@ -849,10 +849,10 @@ a.dropdown-toggle {
   margin: 0; }
 
 .f1-step.activated p {
-  color: #0067a3; }
+  color: #cc3333; }
 
 .f1-step.active p {
-  color: #0067a3; }
+  color: #cc3333; }
 
 .f1 fieldset {
   display: none;
@@ -870,7 +870,7 @@ a.dropdown-toggle {
   left: -9999px; }
 
 #journey input[type=radio]:checked + label > div, #manage-user input[type=radio]:checked + label > div {
-  border: 1px solid #0067a3; }
+  border: 1px solid #cc3333; }
 
 #journey input[type=radio] + label > div, #manage-user input[type=radio] + label > div {
   border: 1px solid #ddd;
@@ -1179,10 +1179,10 @@ label.selectPioneerSkill {
   color: #616a71; }
 
 .admin_menu_dropdown a:hover {
-  color: #0067a3; }
+  color: #cc3333; }
 
 .hr-heading {
-  border-color: #0067a3;
+  border-color: #cc3333;
   border-width: 1px;
   width: 100px;
   margin: 20px 0 -20px 0; }

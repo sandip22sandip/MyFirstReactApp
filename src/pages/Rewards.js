@@ -12,8 +12,10 @@ import { addProduct } from "../redux/cartSlice";
 
 function Rewards() {
   const currentUser = useSelector((state) => state.user.currentUser);
+  const userId = currentUser.idst;
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+  const cartItems = cart[userId] ? cart[userId].length : 0;
 
   const { isLoading, error, data } = useQuery(["rewards"], () =>
     axiosInstance
@@ -41,11 +43,11 @@ function Rewards() {
   }
 
   const handleClick = (reward) => {
-    // console.log(reward);
-    dispatch(addProduct({ ...reward, quantity: 1 }));
+    const product = { ...reward, quantity: 1 };
+    dispatch(addProduct({ userId, product }));
   };
 
-  // console.log(cart.products.length);
+  // console.log(cart[userId].length);
 
   return (
     <div className="content-page">
@@ -151,10 +153,10 @@ function Rewards() {
                 </div>
                 <div className="panel-body">
                   <h5 className="m-t-0">Your cart</h5>
-                  {cart.products.length > 0 ? (
+                  {cartItems > 0 ? (
                     <div>
                       <p>
-                        You have <strong>{cart.products.length}</strong> item in
+                        You have <strong>{cartItems}</strong> item in
                         your cart.
                       </p>
                       <p>

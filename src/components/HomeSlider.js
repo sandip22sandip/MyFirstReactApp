@@ -24,7 +24,7 @@ function HomeSlider() {
           <div className="hero">
             <hgroup className="m-b-15">
               <h3 className="text-white m-b-15">Welcome to</h3>
-              <h1 className="text-white">Oceana LMS</h1>
+              <h1 className="text-white">SynrgiseLearn LMS</h1>
               <h5 className="text-white">Learning made simple</h5>
             </hgroup>
             <button className="btn btn-secondary">Quick Guide</button>

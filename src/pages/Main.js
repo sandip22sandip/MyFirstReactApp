@@ -113,7 +113,7 @@ function Main() {
                     {/*========== i need help ==========*/}
                     <div className="col-sm-6">
                       <div
-                        className="panel panel-info bg-info"
+                        className="panel panel-info bg-primary"
                         data-toggle="modal"
                         data-target="#help_modal"
                         style={{

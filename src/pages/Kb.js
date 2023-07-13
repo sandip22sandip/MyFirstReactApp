@@ -91,7 +91,7 @@ function Kb() {
                   </h1>
                   <h5>Know Your Services</h5>
                   <p className="content-group">
-                    Browse through the services Oceana LMS has to offer, and
+                    Browse through the services SynrgiseLearn LMS has to offer, and
                     gain more insight.
                   </p>
                   <p>

@@ -44,13 +44,13 @@ File: Topbar,Left-sidebar,Right-sidebar
   .navbar.navbar-dark {
     background-color: #333; }
   .navbar.navbar-primary {
-    background-color: #0067a3; }
+    background-color: #fff; }
   .navbar .nav > li > a:focus, .navbar .nav > li > a:hover {
     text-decoration: none;
     background-color: transparent; }
 
 .nav > li > a {
-  color: #fff;
+  color: #8a94a6;
   line-height: 60px;
   padding: 0px 5px;
   position: relative; }
@@ -183,7 +183,7 @@ body.fixed-left .side-menu.left {
     #sidebar-menu ul ul li {
       border-top: 0; }
     #sidebar-menu ul ul li.active a {
-      color: #0067a3; }
+      color: #cc3333; }
     #sidebar-menu ul ul a {
       color: #75798B;
       display: block;
@@ -202,7 +202,7 @@ body.fixed-left .side-menu.left {
   #sidebar-menu > ul > li > a.active {
     color: #333; }
     #sidebar-menu > ul > li > a.active > i {
-      color: #0067a3; }
+      color: #cc3333; }
   #sidebar-menu > ul > li > a:hover {
     background: #e8e8e8;
     text-decoration: none; }
@@ -309,7 +309,7 @@ body.fixed-left .side-menu.left {
     position: relative;
     z-index: 9999; }
   .user-details .user-info {
-    color: #0067a3;
+    color: #cc3333;
     margin-left: 60px;
     position: relative;
     z-index: 99999; }
