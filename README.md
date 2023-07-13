@@ -72,4 +72,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 ### Core PHP Database Changes:-
 
 Update `user_level` Field to varchar(255)
-Update `rest_auth_lifetime` Value to 3600 int(11)
+Update `rest_auth_lifetime` Value to more than 3600 int(11)

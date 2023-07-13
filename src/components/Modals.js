@@ -82,39 +82,6 @@ function Modals() {
             </div>
           </div>
         </div>
-        {/* notification modal */}
-        <div
-          className="modal fade modal-slideright"
-          id="notification_modal"
-          aria-hidden="true"
-        >
-          <div className="modal-dialog">
-            <div className="modal-content p-0 b-0">
-              <div className="panel panel-primary b-0 no-shadow">
-                <div className="panel-heading">
-                  <button
-                    type="button"
-                    data-dismiss="modal"
-                    className="close btn-xs text-white"
-                  >
-                    <i className="fa fa-times" />
-                  </button>
-                  <h4 className="panel-title text-white">Notifications</h4>
-                </div>
-                <div className="panel-body">
-                  <h6 className="bold">1 New notification</h6>
-                  <hr />
-                  <div>
-                    <Link to="/courses" className="list-group-item b-0" data-dismiss="modal">
-                      <i className="fa fa-chevron-right pull-right" /> New
-                      journey assignment
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
         {/* profile modal */}
         <div
           className="modal fade modal-slideright"

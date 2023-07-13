@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { logout } from "../redux/userSlice";
 import { useDispatch } from "react-redux";
 import { AuthContext } from "../context/authContext";
+import BellNot from "./BellNot";
 
 function Header() {
   const dispatch = useDispatch();
@@ -62,18 +63,7 @@ function Header() {
                   </Link>
                 </li>
                 {/********** NOTIFICATION ICON **********/}
-                <li className="hidden-xs">
-                  <a
-                    href="/#"
-                    data-toggle="modal"
-                    data-target="#notification_modal"
-                  >
-                    <span className="badge badge-xs badge-danger">1</span>
-                    <div className="btn btn-circle waves-effect waves-light no-shadow">
-                      <i className="fa fa-bell-o" />
-                    </div>
-                  </a>
-                </li>
+                <BellNot />
                 {/********** HELP ICON **********/}
                 <li className="hidden-xs">
                   <a href="/#" data-toggle="modal" data-target="#help_modal">
